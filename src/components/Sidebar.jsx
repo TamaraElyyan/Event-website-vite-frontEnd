@@ -14,6 +14,7 @@ import {
 } from "react-icons/md";
 import { BsBook } from "react-icons/bs";
 import { HiOutlineDocumentText } from "react-icons/hi"; // Icon for Lookup Tables
+import Logo from "./Logo";
 
 const Sidebar = () => {
   const [isAdminOpen, setIsAdminOpen] = useState(false); // State for toggling Admin section
@@ -22,13 +23,7 @@ const Sidebar = () => {
 
   return (
     <div className="h-screen w-64 bg-gray-100 fixed left-0 top-0 shadow-md overflow-y-auto">
-      {/* Header */}
-      <div className="flex items-center justify-start p-6  border-gray-300">
-        <FaReact className="text-3xl text-red-800" />{" "}
-        {/* Replace with any icon you prefer */}
-        <h1 className="text-xl font-bold ml-2 text-red-800">Yalla Shabab</h1>
-      </div>
-
+      <Logo />
       {/* Menu */}
       <nav>
         <ul>

@@ -3,7 +3,7 @@ import HeroSection from "../components/Hero";
 
 const Home = () => {
   return (
-    <div className="bg-gradient-to-r from-[#843E71] to-[#feffbb] min-h-screen">
+    <div className="bg-gray-800 min-h-screen">
       {/* Header */}
       <Header />
 

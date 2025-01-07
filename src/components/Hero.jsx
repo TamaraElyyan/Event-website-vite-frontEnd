@@ -17,23 +17,23 @@ const Hero = () => {
   };
 
   return (
-    <section className="bg-gray-100 min-h-screen flex items-center mx-16 justify-center px-4">
+    <section className="bg-gray-100 min-h-screen flex items-center justify-center px-4 overflow-x-hidden">
       {/* التخطيط الرئيسي */}
-      <div className="container mx-auto px-6 lg:px-12 flex flex-col justify-center items-center h-full">
+      <div className="container mx-auto flex flex-col justify-center items-center h-full px-6 lg:px-12">
         {/* تخطيط عمودين */}
-        <div className="flex flex-col lg:flex-row items-center lg:items-center">
+        <div className="flex flex-col lg:flex-row items-center lg:items-center w-full">
           {/* العمود الأيسر - النصوص */}
           <div className="lg:w-1/2 text-center lg:text-left p-6">
-            <h1 className="text-5xl font-bold text-gray-800 mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-6">
               Learn New Skills, Achieve Your Goals: Courses for Every Learner
             </h1>
             <p className="text-gray-600 text-lg mb-8">
               Please register to be a part of the event.
             </p>
             {/* زر التسجيل أو الدخول */}
-            <Link to={buttonText === "Register Now" ? "/signup" : "/login"}>
+            <Link to={buttonText === "Register Now" ? "/Register" : "/login"}>
               <button
-                className="px-8 py-4 bg-[#843E71] text-white text-lg rounded hover:bg-[#ca8eba]"
+                className="px-8 py-4 bg-purple-500 text-white text-lg rounded hover:bg-purple-700"
                 onClick={toggleButtonText}
               >
                 {buttonText}
@@ -47,19 +47,19 @@ const Hero = () => {
             <div className="relative">
               <img
                 src={Togther}
-                alt="Dental Professional"
-                className="w-96 h-96 mx-auto rounded-full border-4 border-[#843E71]"
+                alt="Hero Image"
+                className="w-80 h-80 mx-auto rounded-full md:w-96 md:h-96"
               />
 
               {/* الصور الصغيرة حول الصورة الرئيسية */}
-              <div className="absolute top-[-30px] left-[-50px] w-14 h-14 bg-pink-200 rounded-full flex items-center justify-center shadow-lg">
+              <div className="absolute top-[-30px] left-[-50px] w-14 h-14 bg-purple-500 rounded-full flex items-center justify-center shadow-lg">
                 <img
                   src={icon1}
                   alt="Icon"
                   className="w-12 h-12 rounded-full object-cover"
                 />
               </div>
-              <div className="absolute bottom-[-30px] right-[-50px] w-14 h-14 bg-pink-200 rounded-full flex items-center justify-center shadow-lg">
+              <div className="absolute bottom-[-30px] right-[-50px] w-14 h-14 bg-purple-500 rounded-full flex items-center justify-center shadow-lg">
                 <img
                   src={icon2}
                   alt="Icon"
@@ -69,14 +69,14 @@ const Hero = () => {
             </div>
 
             {/* الصور الإضافية في الجانبين */}
-            <div className="absolute top-1/4 left-[10%] transform -translate-y-1/2 w-14 h-14 bg-pink-200 rounded-full flex items-center justify-center shadow-lg">
+            <div className="absolute top-1/4 left-[10%] transform -translate-y-1/2 w-14 h-14 bg-purple-500 rounded-full flex items-center justify-center shadow-lg">
               <img
                 src={icon3}
                 alt="Icon"
                 className="w-12 h-12 rounded-full object-cover"
               />
             </div>
-            <div className="absolute bottom-1/4 right-[10%] transform translate-y-1/2 w-12 h-12 bg-pink-200 rounded-full flex items-center justify-center shadow-lg">
+            <div className="absolute bottom-1/4 right-[10%] transform translate-y-1/2 w-14 h-14 bg-purple-500 rounded-full flex items-center justify-center shadow-lg">
               <img
                 src={icon4}
                 alt="Icon"
