@@ -1,83 +1,81 @@
 import { useState } from "react";
 import {
+  MdOutlineDashboard,
+  MdOutlineAdminPanelSettings,
+  MdSettings,
+} from "react-icons/md";
+import {
   FaUserGraduate,
   FaChalkboardTeacher,
   FaRegBuilding,
-  FaChevronRight,
-  FaReact,
-  FaGlobeAmericas,
 } from "react-icons/fa";
-import {
-  MdSettings,
-  MdOutlineDashboard,
-  // MdAdminPanelSettings,
-} from "react-icons/md";
 import { BsBook } from "react-icons/bs";
-import { HiOutlineDocumentText } from "react-icons/hi"; // Icon for Lookup Tables
+import { HiOutlineDocumentText } from "react-icons/hi";
+import { FiChevronDown } from "react-icons/fi";
 import Logo from "./Logo";
 
 const Sidebar = () => {
-  const [isAdminOpen, setIsAdminOpen] = useState(false); // State for toggling Admin section
-  const [isTrainingOpen, setIsTrainingOpen] = useState(false); // State for toggling Training Course section
-  const [isAuthOpen, setIsAuthOpen] = useState(false); // State for toggling Authentication section
+  const [isAdminOpen, setIsAdminOpen] = useState(false); // Toggle Admin Section
+  const [isTrainingOpen, setIsTrainingOpen] = useState(false); // Toggle Training Section
 
   return (
-    <div className="h-screen w-64 bg-gray-100 fixed left-0 top-0 shadow-md overflow-y-auto">
-      <Logo />
-      {/* Menu */}
-      <nav>
-        <ul>
+    <div className="h-screen w-64 bg-purple-500 text-white fixed overflow-auto  shadow-lg border-y-2 border-white rounded-3xl">
+      {/* Logo */}
+      <div className=" border-white border-b-2 px-6 py-2 rounded-t-3xl bg-purple-500">
+        <Logo className="text-white" />
+      </div>
+
+      {/* Navigation */}
+      <nav className="mt-2">
+        <ul className="space-y-2">
           {/* Dashboard */}
-          {/* <li>
+          <li>
             <a
               href="#"
-              className="flex items-center px-3 py-3 text-gray-700 hover:bg-gray-200"
+              className="flex items-center px-4 py-3 hover:bg-purple-600 rounded-xl transition"
             >
               <MdOutlineDashboard className="text-xl" />
               <span className="ml-3">Dashboard</span>
             </a>
-          </li> */}
+          </li>
 
           {/* Admin Section */}
           <li>
             <div
-              className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-200 cursor-pointer"
+              className="flex items-center px-4 py-3 hover:bg-purple-600 rounded-xl cursor-pointer transition"
               onClick={() => setIsAdminOpen(!isAdminOpen)}
             >
-              <MdOutlineDashboard className="text-xl" />
-              <span className="ml-3">Dashboard</span>
-              <FaChevronRight
+              <MdOutlineAdminPanelSettings className="text-xl" />
+              <span className="ml-3">Admin Section</span>
+              <FiChevronDown
                 className={`ml-auto transform transition-transform ${
-                  isAdminOpen ? "rotate-90" : ""
+                  isAdminOpen ? "rotate-180" : ""
                 }`}
               />
             </div>
             {isAdminOpen && (
-              <ul className="pl-10 text-gray-700">
+              <ul className="pl-10 mt-2 space-y-2">
                 <li>
                   <a
                     href="#"
-                    className="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-200"
+                    className="block px-3 py-2 bg-purple-600 rounded-lg hover:bg-purple-500 transition"
                   >
-                    <span className="w-2 h-2 bg-gray-700 rounded-full mr-2"></span>
                     Admin Dashboard
                   </a>
                 </li>
                 <li>
                   <a
                     href="#"
-                    className="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-200"
+                    className="block px-3 py-2 bg-purple-600 rounded-lg hover:bg-purple-500 transition"
                   >
-                    <span className="w-2 h-2 bg-gray-700 rounded-full mr-2"></span>
                     Student Dashboard
                   </a>
                 </li>
                 <li>
                   <a
                     href="#"
-                    className="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-200"
+                    className="block px-3 py-2 bg-purple-600 rounded-lg hover:bg-purple-500 transition"
                   >
-                    <span className="w-2 h-2 bg-gray-700 rounded-full mr-2"></span>
                     Teacher Dashboard
                   </a>
                 </li>
@@ -85,174 +83,95 @@ const Sidebar = () => {
             )}
           </li>
 
-          {/* Components Section */}
-          <li className="mt-2">
-            <div className="flex items-center px-4 py-3 text-sm font-bold text-gray-600">
-              <div className="flex-grow border-t border-gray-300 mr-2"></div>
-              Components
-              <div className="flex-grow border-t border-gray-300 ml-2"></div>
+          {/* Training Section */}
+          <li>
+            <div
+              className="flex items-center px-4 py-3 hover:bg-purple-600 rounded-xl cursor-pointer transition"
+              onClick={() => setIsTrainingOpen(!isTrainingOpen)}
+            >
+              <BsBook className="text-xl" />
+              <span className="ml-3">Training</span>
+              <FiChevronDown
+                className={`ml-auto transform transition-transform ${
+                  isTrainingOpen ? "rotate-180" : ""
+                }`}
+              />
             </div>
-            <ul>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-200"
-                >
-                  <FaUserGraduate className="text-xl" />
-                  <span className="ml-3">Students</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-200"
-                >
-                  <FaChalkboardTeacher className="text-xl" />
-                  <span className="ml-3">Teachers</span>
-                </a>
-              </li>
-              {/* Training Course Section */}
-              <li>
-                <div
-                  className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-200 cursor-pointer"
-                  onClick={() => setIsTrainingOpen(!isTrainingOpen)}
-                >
-                  <BsBook className="text-xl" />
-                  <span className="ml-3">Training Course</span>
-                  <FaChevronRight
-                    className={`ml-auto transform transition-transform ${
-                      isTrainingOpen ? "rotate-90" : ""
-                    }`}
-                  />
-                </div>
-                {isTrainingOpen && (
-                  <ul className="pl-10 text-gray-700">
-                    <li>
-                      <a
-                        href="#"
-                        className="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-200"
-                      >
-                        <span className="w-2 h-2 bg-gray-700 rounded-full mr-2"></span>
-                        Courses List
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-200"
-                      >
-                        <span className="w-2 h-2 bg-gray-700 rounded-full mr-2"></span>
-                        Events List
-                      </a>
-                    </li>
-                  </ul>
-                )}
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-200"
-                >
-                  <FaRegBuilding className="text-xl" />
-                  <span className="ml-3">Organization</span>
-                </a>
-              </li>
-            </ul>
+            {isTrainingOpen && (
+              <ul className="pl-10 mt-2 space-y-2">
+                <li>
+                  <a
+                    href="#"
+                    className="block px-3 py-2 bg-purple-600 rounded-lg hover:bg-purple-500 transition"
+                  >
+                    Courses List
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="block px-3 py-2 bg-purple-600 rounded-lg hover:bg-purple-500 transition"
+                  >
+                    Events List
+                  </a>
+                </li>
+              </ul>
+            )}
           </li>
 
-          {/* Supports & Settings */}
-          <li className="mt-2">
-            <div className="flex items-center px-4 py-3 text-sm font-bold text-gray-600">
-              <div className="flex-grow border-t border-gray-300 mr-2"></div>
-              Supports & Settings
-              <div className="flex-grow border-t border-gray-300 ml-2"></div>
-            </div>
-            <ul>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-200"
-                >
-                  <MdSettings className="text-xl" />
-                  <span className="ml-3">Account Settings</span>
-                </a>
-              </li>
-              {/* Authentication Section */}
-              <li>
-                <div
-                  className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-200 cursor-pointer"
-                  onClick={() => setIsAuthOpen(!isAuthOpen)}
-                >
-                  <BsBook className="text-xl" />
-                  <span className="ml-3">Authentication</span>
-                  <FaChevronRight
-                    className={`ml-auto transform transition-transform ${
-                      isAuthOpen ? "rotate-90" : ""
-                    }`}
-                  />
-                </div>
-                {isAuthOpen && (
-                  <ul className="pl-10 text-gray-700">
-                    <li>
-                      <a
-                        href="#"
-                        className="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-200"
-                      >
-                        <span className="w-2 h-2 bg-gray-700 rounded-full mr-2"></span>
-                        Login
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-200"
-                      >
-                        <span className="w-2 h-2 bg-gray-700 rounded-full mr-2"></span>
-                        Register
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-200"
-                      >
-                        <span className="w-2 h-2 bg-gray-700 rounded-full mr-2"></span>
-                        Forget Password
-                      </a>
-                    </li>
-                  </ul>
-                )}
-              </li>
-            </ul>
+          {/* Students */}
+          <li>
+            <a
+              href="#"
+              className="flex items-center px-4 py-3 hover:bg-purple-600 rounded-xl transition"
+            >
+              <FaUserGraduate className="text-xl" />
+              <span className="ml-3">Students</span>
+            </a>
           </li>
 
-          {/* Lookup Tables */}
-          <li className="mt-2">
-            <div className="flex items-center px-4  text-sm font-bold text-gray-600">
-              <div className="flex-grow border-t border-gray-300 mr-2"></div>
-              Lookup Tables
-              <div className="flex-grow border-t border-gray-300 ml-2"></div>
-            </div>
-            <ul>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-200"
-                >
-                  <FaGlobeAmericas className="text-xl" />
-                  <span className="ml-3">City</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-200"
-                >
-                  <HiOutlineDocumentText className="text-xl" />
-                  <span className="ml-3">Language</span>
-                </a>
-              </li>
-            </ul>
+          {/* Teachers */}
+          <li>
+            <a
+              href="#"
+              className="flex items-center px-4 py-3 hover:bg-purple-600 rounded-xl transition"
+            >
+              <FaChalkboardTeacher className="text-xl" />
+              <span className="ml-3">Teachers</span>
+            </a>
+          </li>
+
+          {/* Organization */}
+          <li>
+            <a
+              href="#"
+              className="flex items-center px-4 py-3 hover:bg-purple-600 rounded-xl transition"
+            >
+              <FaRegBuilding className="text-xl" />
+              <span className="ml-3">Organization</span>
+            </a>
+          </li>
+
+          {/* Documents */}
+          <li>
+            <a
+              href="#"
+              className="flex items-center px-4 py-3 hover:bg-purple-600 rounded-xl transition"
+            >
+              <HiOutlineDocumentText className="text-xl" />
+              <span className="ml-3">Documents</span>
+            </a>
+          </li>
+
+          {/* Settings */}
+          <li>
+            <a
+              href="#"
+              className="flex items-center px-4 py-3 mt-1 hover:bg-purple-600 rounded-xl transition"
+            >
+              <MdSettings className="text-xl" />
+              <span className="ml-3">Settings</span>
+            </a>
           </li>
         </ul>
       </nav>

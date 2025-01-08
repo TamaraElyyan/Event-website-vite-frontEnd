@@ -19,17 +19,27 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const response = await axiosInstance.post("/api/v1/auth/login", {
+      const response = await axiosInstance.post("auth/login", {
         username,
         password,
       });
+      console.log("response" + response);
 
-      if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
+      if (response.status === 200 && response.data) {
+        const token = response.data;
+
+        localStorage.setItem("token", token);
+
         if (rememberMe) {
           localStorage.setItem("rememberMe", "true");
+        } else {
+          localStorage.removeItem("rememberMe");
         }
-        window.location.href = "/dashboard"; // Redirect to dashboard
+
+        console.log("Token received:", token);
+
+        // Redirect the user to the dashboard
+        window.location.href = "/dashboard";
       } else {
         setError("No token received. Please try again.");
       }
@@ -46,7 +56,7 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-[#1C1D21] overflow-hidden">
-      <div className="flex w-full max-w-screen-xl mx-auto h-full p-6 md:p-10">
+      <div className="flex w-3/4 max-w-screen-xl mx-auto h-full p-6 md:p-4">
         {/* Right Section */}
         <div className="w-full md:w-1/2 bg-[#1C1D21] p-6 md:p-10 rounded-lg shadow-lg flex items-center justify-center relative z-10 h-full">
           <div className="w-full max-w-md">

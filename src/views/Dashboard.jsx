@@ -2,7 +2,7 @@ import Sidebar from "../components/Sidebar"; // Adjust the path based on your fi
 
 const Dashboard = () => {
   return (
-    <div className=" bg-white ">
+    <div className=" bg-white px-6">
       <Sidebar />
     </div>
   );

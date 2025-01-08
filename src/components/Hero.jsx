@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom"; // لإضافة التنقل بين الصفحات
-import Togther from "../assets/PNG/Hero.jpg";
+import Togther from "../assets/PNG/hero2.jpeg";
 import icon1 from "../assets/PNG/courseIcon1.jpg";
 import icon2 from "../assets/PNG/courseIcon2.jpg";
 import icon3 from "../assets/PNG/courseIcon3.jpg";
@@ -17,7 +17,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="bg-gray-100 min-h-screen flex items-center justify-center px-4 overflow-x-hidden">
+    <section className="bg-gray-100 min-h-screen flex items-center justify-center px-8 overflow-x-hidden">
       {/* التخطيط الرئيسي */}
       <div className="container mx-auto flex flex-col justify-center items-center h-full px-6 lg:px-12">
         {/* تخطيط عمودين */}
@@ -44,22 +44,22 @@ const Hero = () => {
           {/* العمود الأيمن - الصور */}
           <div className="lg:w-1/2 relative flex justify-center items-center mt-10 lg:mt-0">
             {/* الصورة الرئيسية */}
-            <div className="relative">
+            <div className="relative rounded-full border-2 border-purple-500  bg-purple-500">
               <img
                 src={Togther}
                 alt="Hero Image"
-                className="w-80 h-80 mx-auto rounded-full md:w-96 md:h-96"
+                className="w-80 h-80 mx-auto rounded-full  md:w-96 md:h-96"
               />
 
               {/* الصور الصغيرة حول الصورة الرئيسية */}
-              <div className="absolute top-[-30px] left-[-50px] w-14 h-14 bg-purple-500 rounded-full flex items-center justify-center shadow-lg">
+              <div className="absolute top-[-20px] left-[-40px] w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center shadow-lg">
                 <img
                   src={icon1}
                   alt="Icon"
                   className="w-12 h-12 rounded-full object-cover"
                 />
               </div>
-              <div className="absolute bottom-[-30px] right-[-50px] w-14 h-14 bg-purple-500 rounded-full flex items-center justify-center shadow-lg">
+              <div className="absolute bottom-[-20px] right-[-40px] w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center shadow-lg">
                 <img
                   src={icon2}
                   alt="Icon"
@@ -69,14 +69,14 @@ const Hero = () => {
             </div>
 
             {/* الصور الإضافية في الجانبين */}
-            <div className="absolute top-1/4 left-[10%] transform -translate-y-1/2 w-14 h-14 bg-purple-500 rounded-full flex items-center justify-center shadow-lg">
+            <div className="absolute top-[60px] left-[-40px] transform -translate-y-1/2 w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center shadow-lg">
               <img
                 src={icon3}
                 alt="Icon"
                 className="w-12 h-12 rounded-full object-cover"
               />
             </div>
-            <div className="absolute bottom-1/4 right-[10%] transform translate-y-1/2 w-14 h-14 bg-purple-500 rounded-full flex items-center justify-center shadow-lg">
+            <div className="absolute bottom-[60px] right-[-40px] transform translate-y-1/2 w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center shadow-lg">
               <img
                 src={icon4}
                 alt="Icon"

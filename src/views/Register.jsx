@@ -44,7 +44,7 @@ const Register = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-[#1C1D21] overflow-hidden">
-      <div className="flex w-full max-w-screen-xl mx-auto h-full p-6 md:p-10">
+      <div className="flex w-3/4 max-w-screen-xl mx-auto h-full p-6 md:p-4">
         {/* Right Section with Form */}
         <div className="w-full md:w-1/2 bg-[#1C1D21] p-6 md:p-10 rounded-lg shadow-lg flex items-center justify-center relative z-10 h-full">
           <div className="w-full max-w-md">
