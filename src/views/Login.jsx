@@ -23,23 +23,13 @@ const Login = () => {
         username,
         password,
       });
-      console.log("response" + response);
 
-      if (response.status === 200 && response.data) {
-        const token = response.data;
-
-        localStorage.setItem("token", token);
-
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
         if (rememberMe) {
           localStorage.setItem("rememberMe", "true");
-        } else {
-          localStorage.removeItem("rememberMe");
         }
-
-        console.log("Token received:", token);
-
-        // Redirect the user to the dashboard
-        window.location.href = "/dashboard";
+        window.location.href = "/dashboard"; // Redirect to dashboard
       } else {
         setError("No token received. Please try again.");
       }
