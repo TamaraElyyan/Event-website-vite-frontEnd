@@ -24,12 +24,21 @@ const Login = () => {
         password,
       });
 
-      if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
+      if (response.status === 200 && response.data) {
+        const token = response.data;
+  
+        localStorage.setItem("token", token);
+  
         if (rememberMe) {
           localStorage.setItem("rememberMe", "true");
+        } else {
+          localStorage.removeItem("rememberMe");
         }
-        window.location.href = "/dashboard"; // Redirect to dashboard
+  
+        console.log("Token received:", token);
+  
+        // Redirect the user to the dashboard
+        window.location.href = "/dashboard";
       } else {
         setError("No token received. Please try again.");
       }
