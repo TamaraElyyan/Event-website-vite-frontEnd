@@ -4,21 +4,27 @@ import "../headerIndex.css";
 const HeaderIndexPage = () => {
   return (
     <header id="header" className="header sticky top-0">
-      {/* <div className="container-fluid header-menu container-xl position-relative d-flex align-items-center"> */}
       <div class="w-full header-menu container relative flex items-center max-w-screen-xl mx-auto">
 
         <a href="index.html" className="logo flex items-center me-auto">
-          {/* Uncomment the line below if you also wish to use an image logo */}
-          {/* <img src="assets/img/logo.png" alt="" /> */}
-          <h1 className="sitename">Mentor</h1>
+        <h1 className="font-bold text-[#aa85e3] text-[30px] m-0 tracking-[1px] uppercase">
+        Yalla Shabab!
+</h1>
+
+          {/* <h1 className="text-[#aa85e3] font-bold  m-0 tracking-wide uppercase">Yalla Shabab!</h1> */}
         </a>
 
         <nav id="navmenu" className="navmenu">
           <ul>
             <li>
-              <a href="index.html" className="active">
-                Home
-              </a>
+            <a
+  href="index.html"
+  className="text-gray-500 hover:text-[#aa85e3] font-medium"
+  aria-current="page"
+>
+            Home
+          </a>
+
             </li>
             <li>
               <a href="about.html">About</a>
@@ -58,9 +64,12 @@ const HeaderIndexPage = () => {
           <i className="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <a className="btn-getstarted" href="courses.html">
-          Get Started
-        </a>
+        <a 
+  className="text-[var(--contrast-color)]  bg-[#925FE2] text-sm py-2 px-6 ml-8 rounded-full transition-all duration-300"
+  href="courses.html"
+>
+  Get Started
+</a>
       </div>
     </header>
   );

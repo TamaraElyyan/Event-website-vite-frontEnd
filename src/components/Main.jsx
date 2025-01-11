@@ -1,7 +1,9 @@
 import React from 'react';
 import "../main.css";
 import HEREOIMG from "../assets/GPJ/hero.jpg";
-import ABOUTIMG from "../assets/GPJ/about.jpg"
+import ABOUTIMG from "../assets/GPJ/about.jpg";
+import { FaChevronRight } from 'react-icons/fa'; 
+
 const Main = () => {
   return (
     <main className="main">
@@ -15,7 +17,7 @@ const Main = () => {
             Leading Tomorrow
           </h2>
           <p data-aos="fade-up" data-aos-delay="200">
-            We are team of talented designers making websites with Bootstrap
+            We are team of talented programer 
           </p>
           <div className="flex mt-4" data-aos="fade-up" data-aos-delay="300">
             <a href="courses.html" className="btn-get-started">
@@ -109,55 +111,50 @@ const Main = () => {
 
       {/* Why Us Section */}
       <section id="why-us" className="section why-us">
-        <div className="container">
-          <div className="row gy-4">
-            <div className="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-              <div className="why-box">
-                <h3>Why Choose Our Products?</h3>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua. Duis aute irure dolor in reprehenderit Asperiores dolores sed et. Tenetur quia
-                  eos. Autem tempore quibusdam vel necessitatibus optio ad corporis.
-                </p>
-                <div className="text-center">
-                  <a href="#" className="more-btn">
-                    <span>Learn More</span> <i className="bi bi-chevron-right"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-8 d-flex align-items-stretch">
-              <div className="row gy-4" data-aos="fade-up" data-aos-delay="200">
-                {[
-                  {
-                    icon: 'bi-clipboard-data',
-                    title: 'Corporis voluptates officia eiusmod',
-                    description: 'Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip',
-                  },
-                  {
-                    icon: 'bi-gem',
-                    title: 'Ullamco laboris ladore pan',
-                    description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt',
-                  },
-                  {
-                    icon: 'bi-inboxes',
-                    title: 'Labore consequatur incidid dolore',
-                    description: 'Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere',
-                  },
-                ].map((item, index) => (
-                  <div className="col-xl-4" key={index}>
-                    <div className="icon-box d-flex flex-column justify-content-center align-items-center">
-                      <i className={`bi ${item.icon}`}></i>
-                      <h4>{item.title}</h4>
-                      <p>{item.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+      <div className="container mx-auto px-4">
+        <div className="flex gap-4 justify-between">
+
+          {/* Why Box */}
+          <div className="w-full sm:w-1/4 p-4" data-aos="fade-up" data-aos-delay="100">
+            <div className="why-box p-6 bg-white border rounded-lg shadow-lg">
+              <h3 className="text-xl font-semibold">Why Choose Our Products?</h3>
+              <p className="mt-4 text-gray-700">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
+                Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus optio ad corporis.
+              </p>
+              <div className="text-center mt-4">
+      <a href="#" className="more-btn text-blue-500 hover:underline flex items-center justify-center">
+        <span>Learn More</span>
+        <FaChevronRight className="ml-2" /> {/* Replaced the icon with React Icon */}
+      </a>
+    </div>
             </div>
           </div>
+
+          {/* Icon Boxes */}
+          <div className="flex w-full sm:w-3/4 gap-4 justify-between">
+            <div className="icon-box flex flex-col items-center text-center p-6 bg-white border rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
+              <i className="bi bi-clipboard-data text-4xl text-blue-500"></i>
+              <h4 className="mt-4 font-semibold">Corporis voluptates officia eiusmod</h4>
+              <p className="mt-2 text-gray-600">Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+            </div>
+
+            <div className="icon-box flex flex-col items-center text-center p-6 bg-white border rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="300">
+              <i className="bi bi-gem text-4xl text-blue-500"></i>
+              <h4 className="mt-4 font-semibold">Ullamco laboris ladore pan</h4>
+              <p className="mt-2 text-gray-600">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
+            </div>
+
+            <div className="icon-box flex flex-col items-center text-center p-6 bg-white border rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="400">
+              <i className="bi bi-inboxes text-4xl text-blue-500"></i>
+              <h4 className="mt-4 font-semibold">Labore consequatur incidid dolore</h4>
+              <p className="mt-2 text-gray-600">Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
+            </div>
+          </div>
+
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Features Section */}
       <section id="features" className="features section">
