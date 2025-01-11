@@ -26,25 +26,26 @@ const Login = () => {
 
       if (response.status === 200 && response.data) {
         const token = response.data;
-  
+
         localStorage.setItem("token", token);
-  
+
         if (rememberMe) {
           localStorage.setItem("rememberMe", "true");
         } else {
           localStorage.removeItem("rememberMe");
         }
-  
+
         console.log("Token received:", token);
-  
+
         // Redirect the user to the dashboard
         window.location.href = "/dashboard";
       } else {
         setError("No token received. Please try again.");
       }
     } catch (error) {
+      // console.log(error.response?.data);
       setError(
-        error.response?.data?.message ||
+        error.response?.data ||
           error.message ||
           "Something went wrong. Please try again."
       );

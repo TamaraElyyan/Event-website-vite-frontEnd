@@ -25,7 +25,7 @@ const Register = () => {
     setError(null);
 
     try {
-      const response = await axiosInstance.post("/auth/StudentSignUp", {
+      const response = await axiosInstance.post("/auth/signup", {
         username,
         email,
         password,

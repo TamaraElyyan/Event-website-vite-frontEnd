@@ -10,7 +10,7 @@ const Logo = ({ className = "" }) => {
 
   return (
     <div
-      className="flex items-center justify-start p-2 border-gray-300 cursor-pointer"
+      className="flex items-center justify-start  border-gray-300 cursor-pointer"
       onClick={handleLogoClick}
     >
       <img src={logo} alt="logo" className="w-10 h-10" />

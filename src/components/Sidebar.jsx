@@ -1,13 +1,10 @@
 import { useState } from "react";
-import {
-  MdOutlineDashboard,
-  MdOutlineAdminPanelSettings,
-  MdSettings,
-} from "react-icons/md";
+import { MdOutlineDashboard, MdSettings } from "react-icons/md";
 import {
   FaUserGraduate,
   FaChalkboardTeacher,
   FaRegBuilding,
+  FaLock,
 } from "react-icons/fa";
 import { BsBook } from "react-icons/bs";
 import { HiOutlineDocumentText } from "react-icons/hi";
@@ -15,82 +12,37 @@ import { FiChevronDown } from "react-icons/fi";
 import Logo from "./Logo";
 
 const Sidebar = () => {
-  const [isAdminOpen, setIsAdminOpen] = useState(false); // Toggle Admin Section
+  const [isLockUp, setLockUp] = useState(false); // Toggle LockUp Section
   const [isTrainingOpen, setIsTrainingOpen] = useState(false); // Toggle Training Section
 
   return (
-    <div className="h-screen w-64 bg-purple-500 text-white fixed overflow-auto  shadow-lg border-y-2 border-white rounded-3xl">
+    <div className="h-screen w-64 text-[#aa85e3] fixed overflow-auto shadow-lg border-2 border-gradient-to-r from-[#925fe2] to-[#aa85e3] bg-white">
       {/* Logo */}
-      <div className=" border-white border-b-2 px-6 py-2 rounded-t-3xl bg-purple-500">
-        <Logo className="text-white" />
+      <div className="border-[#aa85e3] border-b-2 px-6 py-4 bg-white">
+        <Logo className="text-[#aa85e3]" />
       </div>
-
       {/* Navigation */}
-      <nav className="mt-2">
-        <ul className="space-y-2">
+      <nav className="mt-6 mb-4">
+        <ul className="space-y-3">
           {/* Dashboard */}
           <li>
             <a
               href="#"
-              className="flex items-center px-4 py-3 hover:bg-purple-600 rounded-xl transition"
+              className="flex items-center px-5 py-3 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-xl transition duration-300"
             >
               <MdOutlineDashboard className="text-xl" />
-              <span className="ml-3">Dashboard</span>
+              <span className="ml-4">Dashboard</span>
             </a>
-          </li>
-
-          {/* Admin Section */}
-          <li>
-            <div
-              className="flex items-center px-4 py-3 hover:bg-purple-600 rounded-xl cursor-pointer transition"
-              onClick={() => setIsAdminOpen(!isAdminOpen)}
-            >
-              <MdOutlineAdminPanelSettings className="text-xl" />
-              <span className="ml-3">Admin Section</span>
-              <FiChevronDown
-                className={`ml-auto transform transition-transform ${
-                  isAdminOpen ? "rotate-180" : ""
-                }`}
-              />
-            </div>
-            {isAdminOpen && (
-              <ul className="pl-10 mt-2 space-y-2">
-                <li>
-                  <a
-                    href="#"
-                    className="block px-3 py-2 bg-purple-600 rounded-lg hover:bg-purple-500 transition"
-                  >
-                    Admin Dashboard
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block px-3 py-2 bg-purple-600 rounded-lg hover:bg-purple-500 transition"
-                  >
-                    Student Dashboard
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block px-3 py-2 bg-purple-600 rounded-lg hover:bg-purple-500 transition"
-                  >
-                    Teacher Dashboard
-                  </a>
-                </li>
-              </ul>
-            )}
           </li>
 
           {/* Training Section */}
           <li>
             <div
-              className="flex items-center px-4 py-3 hover:bg-purple-600 rounded-xl cursor-pointer transition"
+              className="flex items-center px-5 py-3 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-xl cursor-pointer transition duration-300"
               onClick={() => setIsTrainingOpen(!isTrainingOpen)}
             >
               <BsBook className="text-xl" />
-              <span className="ml-3">Training</span>
+              <span className="ml-4">Training</span>
               <FiChevronDown
                 className={`ml-auto transform transition-transform ${
                   isTrainingOpen ? "rotate-180" : ""
@@ -102,7 +54,7 @@ const Sidebar = () => {
                 <li>
                   <a
                     href="#"
-                    className="block px-3 py-2 bg-purple-600 rounded-lg hover:bg-purple-500 transition"
+                    className="block px-4 py-2 bg-white hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-lg transition duration-300"
                   >
                     Courses List
                   </a>
@@ -110,7 +62,7 @@ const Sidebar = () => {
                 <li>
                   <a
                     href="#"
-                    className="block px-3 py-2 bg-purple-600 rounded-lg hover:bg-purple-500 transition"
+                    className="block px-4 py-2 bg-white hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-lg transition duration-300"
                   >
                     Events List
                   </a>
@@ -123,10 +75,10 @@ const Sidebar = () => {
           <li>
             <a
               href="#"
-              className="flex items-center px-4 py-3 hover:bg-purple-600 rounded-xl transition"
+              className="flex items-center px-5 py-3 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-xl transition duration-300"
             >
               <FaUserGraduate className="text-xl" />
-              <span className="ml-3">Students</span>
+              <span className="ml-4">Students</span>
             </a>
           </li>
 
@@ -134,10 +86,10 @@ const Sidebar = () => {
           <li>
             <a
               href="#"
-              className="flex items-center px-4 py-3 hover:bg-purple-600 rounded-xl transition"
+              className="flex items-center px-5 py-3 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-xl transition duration-300"
             >
               <FaChalkboardTeacher className="text-xl" />
-              <span className="ml-3">Teachers</span>
+              <span className="ml-4">Teachers</span>
             </a>
           </li>
 
@@ -145,10 +97,10 @@ const Sidebar = () => {
           <li>
             <a
               href="#"
-              className="flex items-center px-4 py-3 hover:bg-purple-600 rounded-xl transition"
+              className="flex items-center px-5 py-3 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-xl transition duration-300"
             >
               <FaRegBuilding className="text-xl" />
-              <span className="ml-3">Organization</span>
+              <span className="ml-4">Organization</span>
             </a>
           </li>
 
@@ -156,10 +108,10 @@ const Sidebar = () => {
           <li>
             <a
               href="#"
-              className="flex items-center px-4 py-3 hover:bg-purple-600 rounded-xl transition"
+              className="flex items-center px-5 py-3 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-xl transition duration-300"
             >
               <HiOutlineDocumentText className="text-xl" />
-              <span className="ml-3">Documents</span>
+              <span className="ml-4">Documents</span>
             </a>
           </li>
 
@@ -167,11 +119,47 @@ const Sidebar = () => {
           <li>
             <a
               href="#"
-              className="flex items-center px-4 py-3 mt-1 hover:bg-purple-600 rounded-xl transition"
+              className="flex items-center px-5 py-3 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-xl transition duration-300"
             >
               <MdSettings className="text-xl" />
-              <span className="ml-3">Settings</span>
+              <span className="ml-4">Settings</span>
             </a>
+          </li>
+
+          {/* LockUp Section */}
+          <li>
+            <div
+              className="flex items-center px-5 py-3 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-xl cursor-pointer transition duration-300"
+              onClick={() => setLockUp(!isLockUp)}
+            >
+              <FaLock className="text-xl" />
+              <span className="ml-4">LockUp</span>
+              <FiChevronDown
+                className={`ml-auto transform transition-transform ${
+                  isLockUp ? "rotate-180" : ""
+                }`}
+              />
+            </div>
+            {isLockUp && (
+              <ul className="pl-10 mt-2 space-y-2">
+                <li>
+                  <a
+                    href="#"
+                    className="block px-4 py-2 bg-white hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-lg transition duration-300"
+                  >
+                    Language
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="block px-4 py-2 bg-white hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-lg transition duration-300"
+                  >
+                    Country
+                  </a>
+                </li>
+              </ul>
+            )}
           </li>
         </ul>
       </nav>

@@ -1,4 +1,4 @@
-const STUDENT_BASE = "http://localhost:8080/api/v1/Student/";
+const STUDENT_BASE = "http://localhost:8080/api/v1/auth/signup";
 
 const studentEndpoints = {
   getEventsList: `${STUDENT_BASE}GetEventsList`,

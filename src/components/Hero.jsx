@@ -1,21 +1,11 @@
-import { useState } from "react";
-import { Link } from "react-router-dom"; // لإضافة التنقل بين الصفحات
 import Togther from "../assets/PNG/hero2.jpeg";
 import icon1 from "../assets/PNG/courseIcon1.jpg";
 import icon2 from "../assets/PNG/courseIcon2.jpg";
 import icon3 from "../assets/PNG/courseIcon3.jpg";
 import icon4 from "../assets/PNG/courseIcon4.jpg";
+import GetStartedButton from "./GetStartedButton";
 
 const Hero = () => {
-  const [buttonText, setButtonText] = useState("Register Now");
-
-  // التبديل بين النصوص في الزر بناءً على حاجة المستخدم
-  const toggleButtonText = () => {
-    setButtonText((prevText) =>
-      prevText === "Register Now" ? "Login" : "Register Now"
-    );
-  };
-
   return (
     <section className="bg-gray-100 min-h-screen flex items-center justify-center px-8 overflow-x-hidden">
       {/* التخطيط الرئيسي */}
@@ -31,14 +21,15 @@ const Hero = () => {
               Please register to be a part of the event.
             </p>
             {/* زر التسجيل أو الدخول */}
-            <Link to={buttonText === "Register Now" ? "/Register" : "/login"}>
+            {/* <Link to={buttonText === "Register Now" ? "/Register" : "/login"}>
               <button
                 className="px-8 py-4 bg-purple-500 text-white text-lg rounded hover:bg-purple-700"
                 onClick={toggleButtonText}
               >
                 {buttonText}
               </button>
-            </Link>
+            </Link> */}
+            <GetStartedButton />
           </div>
 
           {/* العمود الأيمن - الصور */}
