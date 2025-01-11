@@ -32,7 +32,8 @@ const Login = () => {
   
         // Store token in localStorage
         localStorage.setItem("token", token);
-  
+        localStorage.setItem("username", username);
+
         // Remember Me functionality
         if (rememberMe) {
           localStorage.setItem("rememberMe", "true");

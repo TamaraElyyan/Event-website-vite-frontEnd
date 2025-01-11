@@ -29,28 +29,42 @@ const AppRouter = () => {
     loading: true, // Default: Loading state
   });
 
+  const username = 'Admin'; // Set the username dynamically
   // Fetch user authentication and role
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axiosInstance.get("/user/Admin"); // Adjust API endpoint for user info
-        console.log(response);
-        setUser({
-          isAuthenticated: true,
-          role: response.data.role, // e.g., "SUPER_ADMIN", "STUDENT", "INSTRUCTOR"
-          loading: false,
-        });
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setUser({
-          isAuthenticated: false,
-          role: "",
-          loading: false,
-        });
-      }
-    };
-    fetchUser();
-  }, []);
+ // Fetch user authentication and role
+ // Fetch user authentication and role
+ // Fetch user authentication and role
+ useEffect(() => {
+  const fetchUser = async () => {
+    try {
+      const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
+      const username =localStorage.getItem('username') // Replace with dynamic username if needed
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      console.log(token);
+      console.log(username);
+
+      // Fetch user data
+      const response = await axiosInstance.get(`/user/${username}`, { headers });
+      console.log(response);
+      setUser({
+        isAuthenticated: true,
+        role: response.data.role, // e.g., "SUPER_ADMIN", "STUDENT", "INSTRUCTOR"
+        loading: false,
+      });
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      setUser({
+        isAuthenticated: false,
+        role: "",
+        loading: false,
+      });
+    }
+  };
+
+  fetchUser();
+}, []);
 
   // Redirect path based on user role
   const getRedirectPath = () => {

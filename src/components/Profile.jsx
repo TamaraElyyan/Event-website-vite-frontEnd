@@ -9,9 +9,17 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
+      const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
+      const username =localStorage.getItem('username') // Replace with dynamic username if needed
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      console.log("bbbbbbbbb"+username);
+      console.log("bbbbbbbbb"+token);
+
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/v1/user/Admin"
+          `http://localhost:8080/api/v1/user/${username}`,{headers}
         );
         setUser({
           name: response.data.name,
