@@ -73,7 +73,6 @@ const AppRouter = () => {
 
   return (
     <Router>
-<<<<<<< HEAD
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           {/* Public Routes */}
@@ -118,23 +117,8 @@ const AppRouter = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
-=======
-      <Routes>
-      <Route exact path="/" element={<IndexPage/>} />
-
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-
-        {/* Fallback Route for 404 */}
-        {/* <Route path="*" element={<NotFound />} /> */}
-      </Routes>
->>>>>>> 9ef5a9d15c3c90bf0bbe041332f83d77e6579bb5
     </Router>
   );
 };
 
-export default AppRouter;
+export default AppRouter;
