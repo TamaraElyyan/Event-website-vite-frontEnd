@@ -14,45 +14,52 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    setError("");
-    setIsLoading(true);
-
+  
+    setError(""); // Clear any existing errors
+    setIsLoading(true); // Show loading state
+  
     try {
+      // Send login request to the server
       const response = await axiosInstance.post("auth/login", {
         username,
         password,
       });
-
+  
+      console.log("Response:", response);
+  
       if (response.status === 200 && response.data) {
         const token = response.data;
-
+  
+        // Store token in localStorage
         localStorage.setItem("token", token);
-
+  
+        // Remember Me functionality
         if (rememberMe) {
           localStorage.setItem("rememberMe", "true");
         } else {
           localStorage.removeItem("rememberMe");
         }
-
+  
         console.log("Token received:", token);
-
-        // Redirect the user to the dashboard
+  
+        // Redirect user to the dashboard
         window.location.href = "/dashboard";
       } else {
-        setError("No token received. Please try again.");
+        setError("Login failed. Please check your credentials.");
       }
     } catch (error) {
-      // console.log(error.response?.data);
+      console.error("Error during login:", error);
+  
+      // Display error message to the user
       setError(
-        error.response?.data ||
-          error.message ||
-          "Something went wrong. Please try again."
+        error.response?.data?.message || 
+        "Something went wrong. Please try again."
       );
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Reset loading state
     }
   };
+  
 
   return (
     <div className="flex justify-center items-center h-screen bg-[#1C1D21] overflow-hidden">

@@ -12,6 +12,7 @@ import Login from "../views/Login";
 import Register from "../views/Register";
 import Home from "../views/Home";
 import About from "../views/About";
+import IndexPage from "../views/IndexPage";
 
 // Lazy-loaded components for large sections
 const Dashboard = React.lazy(() => import("../views/Dashboard"));
@@ -72,6 +73,7 @@ const AppRouter = () => {
 
   return (
     <Router>
+<<<<<<< HEAD
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           {/* Public Routes */}
@@ -116,6 +118,20 @@ const AppRouter = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
+=======
+      <Routes>
+      <Route exact path="/" element={<IndexPage/>} />
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        {/* Fallback Route for 404 */}
+        {/* <Route path="*" element={<NotFound />} /> */}
+      </Routes>
+>>>>>>> 9ef5a9d15c3c90bf0bbe041332f83d77e6579bb5
     </Router>
   );
 };
