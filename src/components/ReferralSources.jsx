@@ -41,7 +41,6 @@ const ReferralSources = () => {
       },
       title: {
         display: true,
-        text: "Users Referred by Source",
         color: "#4A4A4A",
         font: {
           size: 16,

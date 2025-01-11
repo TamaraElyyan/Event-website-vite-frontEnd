@@ -133,7 +133,7 @@ const Sidebar = () => {
               onClick={() => setLockUp(!isLockUp)}
             >
               <FaLock className="text-xl" />
-              <span className="ml-4">LockUp</span>
+              <span className="ml-4">Lockup</span>
               <FiChevronDown
                 className={`ml-auto transform transition-transform ${
                   isLockUp ? "rotate-180" : ""
