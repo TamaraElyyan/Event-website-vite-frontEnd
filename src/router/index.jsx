@@ -6,11 +6,14 @@ import Events from "../views/Events";
 import Home from "../views/Home";
 // import NotFound from "../views/NotFound";
 import About from "../views/About";
+import IndexPage from "../views/IndexPage";
 
 const AppRouter = () => {
   return (
     <Router>
       <Routes>
+      <Route exact path="/" element={<IndexPage/>} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
