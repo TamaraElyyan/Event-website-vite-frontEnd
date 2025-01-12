@@ -5,17 +5,11 @@ import LOGIN from "../assets/PNG/Login.png";
 import vector1 from "../assets/PNG/Vector1.png";
 import vector2 from "../assets/PNG/Vector2.png";
 import vector3 from "../assets/PNG/Vector3.png";
+console.log("cccccc");
 
 const Login = () => {
-  const context = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
 
-  if (!context) {
-    throw new Error(
-      "AuthContext is not provided. Please wrap your components with AuthProvider."
-    );
-  }
-
-  const { login } = context;
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -27,24 +21,36 @@ const Login = () => {
 
     setError("");
     setIsLoading(true);
+    console.log("cccccc")
 
     try {
+      console.log("cccccc2")
       const response = await axiosInstance.post("auth/login", {
         username,
         password,
       });
 
+      console.log("cccccc3")
+
+      console.log(response)
       if (response.status === 200 && response.data) {
-        const token = response.data;
-        login(token, username, rememberMe);
-        window.location.href = "/dashboard";
+        //const token = response.data; // Assuming response.data contains the token
+        const token  = response.data;
+        // console.log(response.data);
+          localStorage.setItem("token",token);
+          localStorage.setItem("username",username);
+          localStorage.setItem("rememberMe",rememberMe);
+           console.log(token,username)
+          login(token, username, rememberMe);
+        // login(token, username, rememberMe); // Pass token, username, and rememberMe to the login function
+        window.location.href = "/dashboard"; // Redirect to the dashboard
       } else {
         setError("Login failed. Please check your credentials.");
       }
     } catch (error) {
       setError(
         error.response?.data?.message ||
-          "Something went wrong. Please try again."
+        "Something went wrong. Please try again."
       );
     } finally {
       setIsLoading(false);

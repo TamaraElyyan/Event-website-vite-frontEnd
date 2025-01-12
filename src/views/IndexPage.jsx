@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import HeaderIndexPage from "../components/HeaderIndexPage";
-import Main from "../components/Main";
+// import HeaderIndexPage from "../components/HeaderIndexPage";
+// import Main from "../components/Main";
 // import Footer from "./Footer";
-import "../indexPage.css";
+// import "../indexPage.css";
 
 const IndexPage = () => {
   useEffect(() => {

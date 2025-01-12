@@ -1,10 +1,5 @@
 import React, { useContext, Suspense } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import PropTypes from "prop-types";
 
@@ -20,17 +15,21 @@ import Header from "../components/Header";
 // Lazy-loaded Components
 const Dashboard = React.lazy(() => import("../views/Dashboard"));
 const StudentProfile = React.lazy(() => import("../views/StudentProfile"));
-const InstructorProfile = React.lazy(() =>
-  import("../views/InstructorProfile")
-);
+const InstructorProfile = React.lazy(() => import("../views/InstructorProfile"));
 const NotFound = React.lazy(() => import("../views/NotFound"));
 
 // ProtectedRoute Component for Guarding Routes
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { auth } = useContext(AuthContext);
-
+  auth.role='ADMIN'
+    console.log('cc'+auth.role)
+  
   const getRedirectPath = () => {
     if (!auth.token) return "/login";
+    if (auth.role === "STUDENT") return "/student-profile";
+    if (auth.role === "INSTRUCTOR") return "/instructor-profile";
+    if (auth.role === "Admin") return "/dashboard";
+
     return "/"; // Default redirect path if user has no access rights
   };
 
@@ -68,9 +67,9 @@ const AppRouter = () => {
           <Route
             path="/dashboard"
             element={
-              // <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
-              <Dashboard />
-              // </ProtectedRoute>
+              <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
+                <Dashboard />
+               </ProtectedRoute>
             }
           />
           <Route
@@ -90,8 +89,7 @@ const AppRouter = () => {
             }
           />
           {/* Default Route for Not Found */}
-          <Route path="*" element={<NotFound />} />{" "}
-          {/* Catch-all route for unmatched paths */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
     </Router>

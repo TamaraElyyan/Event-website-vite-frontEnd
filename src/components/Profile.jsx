@@ -23,10 +23,13 @@ const Profile = () => {
   // Fetch user data when the component mounts or when the token or username changes
   useEffect(() => {
     const fetchUserData = async () => {
+      console.log(auth.username)
+      console.log(auth.token)
       // Check if token and username are available in AuthContext
       if (!auth.token || !auth.username) {
         console.error("Token or username missing in AuthContext");
         setLoading(false);
+        setError("Token or username is missing.");
         return;
       }
 
@@ -37,6 +40,8 @@ const Profile = () => {
             Authorization: `Bearer ${auth.token}`,
           },
         });
+
+        // Set user data if response is successful
         setUser({
           name: response.data.name,
           profileImage: response.data.profileImage || userDefault,

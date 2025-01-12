@@ -1,41 +1,26 @@
-import { useContext, useEffect } from "react";
-import { DataContext } from "./DataProvider";
-import PropTypes from "prop-types"; // استيراد PropTypes
+import React from "react";
+import PropTypes from "prop-types";
 
-const Table = ({ columns, apiUrl }) => {
-  const { data, loading, error, fetchData } = useContext(DataContext);
-
-  useEffect(() => {
-    if (apiUrl) {
-      fetchData(apiUrl);
-    }
-  }, [apiUrl, fetchData]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
+const Table = ({ columns, data }) => {
+  if (!data || data.length === 0) {
+    return <p>No data available.</p>; // Display a message if no data is available
   }
 
   return (
-    <table className="min-w-full border-collapse">
+    <table>
       <thead>
         <tr>
-          {columns.map((column, index) => (
-            <th key={index} className="border px-4 py-2">
-              {column}
-            </th>
+          {columns.map((col, index) => (
+            <th key={index}>{col}</th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {data.map((item, index) => (
-          <tr key={index}>
-            {columns.map((column, columnIndex) => (
-              <td key={columnIndex} className="border px-4 py-2">
-                {item[column.toLowerCase()]}
+        {data.map((row, rowIndex) => (
+          <tr key={rowIndex}>
+            {columns.map((col, colIndex) => (
+              <td key={colIndex}>
+                {row[col] !== undefined ? row[col] : "N/A"} {/* Default "N/A" if the property is undefined */}
               </td>
             ))}
           </tr>
@@ -46,8 +31,8 @@ const Table = ({ columns, apiUrl }) => {
 };
 
 Table.propTypes = {
-  columns: PropTypes.array.isRequired,
-  apiUrl: PropTypes.string.isRequired,
+  columns: PropTypes.arrayOf(PropTypes.string).isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Table;
