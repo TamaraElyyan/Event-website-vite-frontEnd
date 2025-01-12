@@ -2,12 +2,12 @@ import Table from "./Table";
 import { DataProvider } from "./DataProvider";
 
 const StudentList = () => {
-  const columns = ["ID", "Name", "phone", "Email"];
-  const apiUrl = "https://api.example.com/students"; // رابط API للـ Students
+  const columns = ["id", "name", "phoneNumber", "jobtitle", "specialization"];
+  const apiUrl = "http://localhost:8080/api/v1/event/eventList"; // Corrected API URL
 
   return (
-    <DataProvider>
-      <Table columns={columns} apiUrl={apiUrl} />
+    <DataProvider apiUrl={apiUrl}>
+      <Table columns={columns} />
     </DataProvider>
   );
 };
