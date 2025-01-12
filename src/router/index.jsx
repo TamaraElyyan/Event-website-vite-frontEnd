@@ -1,20 +1,23 @@
+import React, { useContext, Suspense } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
-import React, { Suspense, useEffect, useState } from "react";
-import axiosInstance from "../API/axios/axiosInstance";
+import { AuthContext } from "../Context/AuthContext";
+import PropTypes from "prop-types";
 
-// Components for public views
+// General Components
 import Login from "../views/Login";
 import Register from "../views/Register";
 import Home from "../views/Home";
 import About from "../views/About";
-import IndexPage from "../views/IndexPage";
+import Partners from "../views/Partners";
+import Contact from "../views/Contact";
+import Header from "../components/Header";
 
-// Lazy-loaded components for large sections
+// Lazy-loaded Components
 const Dashboard = React.lazy(() => import("../views/Dashboard"));
 const StudentProfile = React.lazy(() => import("../views/StudentProfile"));
 const InstructorProfile = React.lazy(() =>
@@ -22,117 +25,77 @@ const InstructorProfile = React.lazy(() =>
 );
 const NotFound = React.lazy(() => import("../views/NotFound"));
 
-const AppRouter = () => {
-  const [user, setUser] = useState({
-    isAuthenticated: false, // Default: Not authenticated
-    role: "", // Default: No role
-    loading: true, // Default: Loading state
-  });
+// ProtectedRoute Component for Guarding Routes
+const ProtectedRoute = ({ children, allowedRoles }) => {
+  const { auth } = useContext(AuthContext);
 
-  const username = 'Admin'; // Set the username dynamically
-  // Fetch user authentication and role
- // Fetch user authentication and role
- // Fetch user authentication and role
- // Fetch user authentication and role
- useEffect(() => {
-  const fetchUser = async () => {
-    try {
-      const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
-      const username =localStorage.getItem('username') // Replace with dynamic username if needed
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-      console.log(token);
-      console.log(username);
-
-      // Fetch user data
-      const response = await axiosInstance.get(`/user/${username}`, { headers });
-      console.log(response);
-      setUser({
-        isAuthenticated: true,
-        role: response.data.role, // e.g., "SUPER_ADMIN", "STUDENT", "INSTRUCTOR"
-        loading: false,
-      });
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      setUser({
-        isAuthenticated: false,
-        role: "",
-        loading: false,
-      });
-    }
-  };
-
-  fetchUser();
-}, []);
-
-  // Redirect path based on user role
   const getRedirectPath = () => {
-    // if (!user.isAuthenticated) return "/login";
-    switch (user.role) {
-      case "SUPER_ADMIN":
-        return "/dashboard";
-      case "STUDENT":
-        return "/student-profile";
-      case "INSTRUCTOR":
-        return "/instructor-profile";
-      default:
-        return "/login";
-    }
+    if (!auth.token) return "/login";
+    return "/"; // Default redirect path if user has no access rights
   };
 
-  if (user.loading) {
-    return <div>Loading user data...</div>; // Loading indicator
+  if (!auth.token) return <Navigate to="/login" replace />;
+  if (!allowedRoles.includes(auth.role)) {
+    return <Navigate to={getRedirectPath()} replace />;
   }
+  return children;
+};
 
+// PropTypes for ProtectedRoute
+ProtectedRoute.propTypes = {
+  children: PropTypes.node.isRequired, // React Node validation for children
+  allowedRoles: PropTypes.arrayOf(PropTypes.string).isRequired, // Array of allowed roles
+};
+
+const AppRouter = () => {
   return (
     <Router>
-      <Suspense fallback={<div>Loading...</div>}>
+      {/* Include Header outside Routes to make it accessible on all pages except dashboard */}
+      <Header />
+
+      <Suspense
+        fallback={<div className="text-center">Loading... Please wait...</div>}
+      >
         <Routes>
           {/* Public Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-
-          {/* Role-Based Routes */}
+          <Route path="/partners" element={<Partners />} />
+          <Route path="/contact" element={<Contact />} />
+          {/* Protected Routes */}
           <Route
             path="/dashboard"
             element={
-              user.isAuthenticated && user.role === "SUPER_ADMIN" ? (
+              <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
                 <Dashboard />
-              ) : (
-                <Navigate to={getRedirectPath()} replace />
-              )
+              </ProtectedRoute>
             }
           />
           <Route
             path="/student-profile"
             element={
-              user.isAuthenticated && user.role === "STUDENT" ? (
+              <ProtectedRoute allowedRoles={["STUDENT"]}>
                 <StudentProfile />
-              ) : (
-                <Navigate to={getRedirectPath()} replace />
-              )
+              </ProtectedRoute>
             }
           />
           <Route
             path="/instructor-profile"
             element={
-              user.isAuthenticated && user.role === "INSTRUCTOR" ? (
+              <ProtectedRoute allowedRoles={["INSTRUCTOR"]}>
                 <InstructorProfile />
-              ) : (
-                <Navigate to={getRedirectPath()} replace />
-              )
+              </ProtectedRoute>
             }
           />
-
-          {/* Fallback Route */}
-          <Route path="*" element={<NotFound />} />
+          {/* Default Route for Not Found */}
+          <Route path="*" element={<NotFound />} />{" "}
+          {/* Catch-all route for unmatched paths */}
         </Routes>
       </Suspense>
     </Router>
   );
 };
 
-export default AppRouter;
+export default AppRouter;

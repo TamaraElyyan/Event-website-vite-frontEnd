@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../Context/AuthContext";
 import axiosInstance from "../API/axios/axiosInstance";
 import LOGIN from "../assets/PNG/Login.png";
 import vector1 from "../assets/PNG/Vector1.png";
@@ -6,66 +7,53 @@ import vector2 from "../assets/PNG/Vector2.png";
 import vector3 from "../assets/PNG/Vector3.png";
 
 const Login = () => {
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error(
+      "AuthContext is not provided. Please wrap your components with AuthProvider."
+    );
+  }
+
+  const { login } = context;
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const [error, setError] = useState(""); // Error state
-  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    setError(""); // Clear any existing errors
-    setIsLoading(true); // Show loading state
-  
+
+    setError("");
+    setIsLoading(true);
+
     try {
-      // Send login request to the server
       const response = await axiosInstance.post("auth/login", {
         username,
         password,
       });
-  
-      console.log("Response:", response);
-  
+
       if (response.status === 200 && response.data) {
         const token = response.data;
-  
-        // Store token in localStorage
-        localStorage.setItem("token", token);
-        localStorage.setItem("username", username);
-
-        // Remember Me functionality
-        if (rememberMe) {
-          localStorage.setItem("rememberMe", "true");
-        } else {
-          localStorage.removeItem("rememberMe");
-        }
-  
-        console.log("Token received:", token);
-  
-        // Redirect user to the dashboard
+        login(token, username, rememberMe);
         window.location.href = "/dashboard";
       } else {
         setError("Login failed. Please check your credentials.");
       }
     } catch (error) {
-      console.error("Error during login:", error);
-  
-      // Display error message to the user
       setError(
-        error.response?.data?.message || 
-        "Something went wrong. Please try again."
+        error.response?.data?.message ||
+          "Something went wrong. Please try again."
       );
     } finally {
-      setIsLoading(false); // Reset loading state
+      setIsLoading(false);
     }
   };
-  
 
   return (
     <div className="flex justify-center items-center h-screen bg-[#1C1D21] overflow-hidden">
       <div className="flex w-3/4 max-w-screen-xl mx-auto h-full p-6 md:p-4">
-        {/* Right Section */}
         <div className="w-full md:w-1/2 bg-[#1C1D21] p-6 md:p-10 rounded-lg shadow-lg flex items-center justify-center relative z-10 h-full">
           <div className="w-full max-w-md">
             <h2 className="text-3xl font-semibold text-center text-white mb-6">
@@ -75,12 +63,10 @@ const Login = () => {
               Glad to have you back!
             </p>
 
-            {/* Error Message */}
             {error && (
               <div className="text-red-500 text-center mb-4">{error}</div>
             )}
 
-            {/* Login Form */}
             <form onSubmit={handleSubmit} className="space-y-6">
               <input
                 type="text"
@@ -127,7 +113,6 @@ const Login = () => {
               <span className="w-1/4 h-0.5 bg-gray-400"></span>
             </div>
 
-            {/* Social Media Icons */}
             <div className="flex justify-center space-x-4">
               <button className="text-white hover:text-red-500 transition">
                 <i className="fab fa-google text-xl"></i>
@@ -141,7 +126,7 @@ const Login = () => {
             </div>
 
             <p className="text-center text-white mt-6 ">
-              {"  Don't have an account?"}
+              {"Don't have an account?"}
               <a
                 href="/Register"
                 className="text-indigo-300 ml-2 hover:underline"
@@ -152,7 +137,6 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Left Section */}
         <div className="w-full md:w-1/2 p-6 md:p-10 bg-[#925FE2] text-white flex flex-col justify-center relative z-0 h-full">
           <img
             src={vector1}
@@ -174,7 +158,6 @@ const Login = () => {
           <p className="text-white mt-2 text-lg mb-8 relative z-10 text-center">
             Access your account and explore your resources!
           </p>
-          {/* Image "LOGIN" placed above vector3 */}
           <div className="mt-1 relative z-10">
             <img
               src={LOGIN}

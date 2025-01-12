@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axiosInstance from "../API/axios/axiosInstance";
+import { AuthContext } from "../Context/AuthContext";
 import vector1 from "../assets/PNG/Vector1.png";
 import vector2 from "../assets/PNG/Vector2.png";
 import vector3 from "../assets/PNG/Vector3.png";
 import LOGIN from "../assets/PNG/Login.png";
 
 const Register = () => {
+  const { login } = useContext(AuthContext); // Use AuthContext
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +17,7 @@ const Register = () => {
   const [error, setError] = useState(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -33,18 +36,19 @@ const Register = () => {
         password,
         firstName,
         lastName,
-        confirmPassword
       });
-    
+
       console.log("Signup successful:", response.data);
-    
-      // Check if the signup was successful
-      if (response.status==201) {
+
+      if (response.status === 201 && response.data) {
+        const { token } = response.data;
+        // Use login function from AuthContext to update auth state
+        login(token, username, true);
+
         alert("Signup successful! Redirecting to your dashboard...");
         window.location.href = "/dashboard"; // Redirect to the dashboard
       } else {
-        alert("Signup successful! Please login.");
-        window.location.href = "/login"; // Redirect to login page
+        setError("Signup failed. Please try again.");
       }
     } catch (err) {
       console.error("Error during signup:", err.response?.data || err.message);
@@ -52,7 +56,7 @@ const Register = () => {
     } finally {
       setLoading(false);
     }
-  }    
+  };
 
   return (
     <div className="flex justify-center items-center h-screen bg-[#1C1D21] overflow-hidden">
@@ -66,12 +70,12 @@ const Register = () => {
             <p className="text-center text-white opacity-70 mb-4">
               Create an account to get started!
             </p>
-  
+
             {/* Error Message */}
             {error && (
               <div className="text-red-500 text-center mb-4">{error}</div>
             )}
-  
+
             {/* Registration Form */}
             <form onSubmit={handleSubmit} className="space-y-6">
               <input
@@ -82,7 +86,7 @@ const Register = () => {
                 className="w-full p-3 bg-gray-800 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                 required
               />
-  
+
               {/* First Name and Last Name */}
               <div className="flex space-x-4">
                 <input
@@ -102,7 +106,7 @@ const Register = () => {
                   required
                 />
               </div>
-  
+
               <input
                 type="email"
                 placeholder="Email"
@@ -135,7 +139,7 @@ const Register = () => {
                 {loading ? "Signing Up..." : "Register"}
               </button>
             </form>
-  
+
             <p className="text-center text-white mt-6">
               Already have an account?{" "}
               <a href="/login" className="text-indigo-300 hover:underline">
@@ -144,7 +148,7 @@ const Register = () => {
             </p>
           </div>
         </div>
-  
+
         {/* Left Section */}
         <div className="w-full md:w-1/2 p-6 md:p-10 bg-[#925FE2] text-white flex flex-col justify-center relative z-0 h-full">
           <img
@@ -163,11 +167,10 @@ const Register = () => {
           <h1 className="text-3xl md:text-5xl font-bold pb-2 relative z-10 text-center">
             Student Portal
           </h1>
-  
+
           <p className="text-white mt-2 text-lg mb-8 relative z-10 text-center">
             Join us and start exploring your resources!
           </p>
-          {/* Image "LOGIN" placed above vector3 */}
           <div className="mt-1 relative z-10">
             <img
               src={LOGIN}
@@ -184,7 +187,6 @@ const Register = () => {
       </div>
     </div>
   );
-  
 };
 
 export default Register;
