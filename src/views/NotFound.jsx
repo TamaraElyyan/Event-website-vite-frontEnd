@@ -1,5 +1,9 @@
-export const NotFound = () => {
+
+
+const StudentList = () => {
+
   return <div>NotFound</div>;
+
 };
 
-//test israa git
+export default StudentList;

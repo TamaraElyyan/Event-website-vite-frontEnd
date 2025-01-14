@@ -13,10 +13,11 @@ import Contact from "../views/Contact";
 import Header from "../components/Header";
 
 // Lazy-loaded Components
-const Dashboard = React.lazy(() => import("../views/Dashboard"));
-const StudentProfile = React.lazy(() => import("../views/StudentProfile"));
-const InstructorProfile = React.lazy(() => import("../views/InstructorProfile"));
-const NotFound = React.lazy(() => import("../views/NotFound"));
+import  Dashboard from "../views/Dashboard";
+import StudentProfile  from "../views/StudentProfile";
+import InstructorProfile from "../views/InstructorProfile";
+import NotFound from "../views/NotFound";
+import StudentsList from "../views/StudentsList";
 
 // ProtectedRoute Component for Guarding Routes
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -36,6 +37,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
   if (!auth.token) return <Navigate to="/login" replace />;
   if (!allowedRoles.includes(auth.role)) {
     return <Navigate to={getRedirectPath()} replace />;
+
   }
   return children;
 };
@@ -69,7 +71,19 @@ const AppRouter = () => {
             element={
               <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
                 <Dashboard />
+              
                </ProtectedRoute>
+               
+            }
+          />
+           <Route
+            path="/StudentsList"
+            element={
+              <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
+        
+                <StudentsList/>
+               </ProtectedRoute>
+               
             }
           />
           <Route

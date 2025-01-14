@@ -27,7 +27,9 @@ const Header = () => {
   if (
     location.pathname === "/dashboard" ||
     location.pathname === "/Register" ||
-    location.pathname === "/login"
+    location.pathname === "/login" ||
+    location.pathname === "/StudentsList" 
+
   ) {
     return null;
   }
