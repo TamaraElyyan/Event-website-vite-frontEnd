@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../API/axios/axiosInstance";
+import Table from "../components/Table";
 
 const StudentsList = () => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchStudents = async () => {
       try {
         const response = await axiosInstance.get("student/studentList");
-        setStudents(response.data);
-      } catch (error) {
-        console.error("Failed to fetch students", error);
+        if (Array.isArray(response.data)) {
+          setStudents(response.data);
+        } else {
+          throw new Error("Unexpected response format");
+        }
+      } catch (err) {
+        console.error("Fetch error:", err.response || err.message);
+        setError("Failed to fetch students. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -19,6 +26,12 @@ const StudentsList = () => {
 
     fetchStudents();
   }, []);
+
+  const columns = [
+    { header: "ID", accessor: "id" },
+    { header: "Name", accessor: "name" },
+    { header: "Email", accessor: "email" },
+  ];
 
   if (loading) {
     return (
@@ -28,41 +41,18 @@ const StudentsList = () => {
     );
   }
 
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-xl text-red-500">{error}</div>
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto p-6">
       <h2 className="text-2xl font-semibold mb-4">Students List</h2>
-      <div className="overflow-x-auto">
-        <table className="min-w-full table-auto border-collapse shadow-md bg-white rounded-lg">
-          <thead>
-            <tr className="bg-indigo-100">
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">
-                ID
-              </th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">
-                Name
-              </th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">
-                Email
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {students.map((student) => (
-              <tr key={student.id} className="hover:bg-gray-50">
-                <td className="px-4 py-2 text-sm text-gray-700">
-                  {student.id}
-                </td>
-                <td className="px-4 py-2 text-sm text-gray-700">
-                  {student.name}
-                </td>
-                <td className="px-4 py-2 text-sm text-gray-700">
-                  {student.email}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Table columns={columns} data={students} />
     </div>
   );
 };
