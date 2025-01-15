@@ -50,9 +50,15 @@ const StudentsList = () => {
   }
 
   return (
-    <div className="container mx-auto p-6">
-      <h2 className="text-2xl font-semibold mb-4">Students List</h2>
-      <Table columns={columns} data={students} />
+    <div className="flex h-screen overflow-hidden ">
+      {/* Sidebar (left side) */}
+      <div className="w-1/6 h-full"></div>
+
+      {/* Main Content (right side) */}
+      <div className="flex-1  flex flex-col ml-0 lg:ml-1 overflow-y-auto  pr-4 lg:pl-8 lg:pr-11 relative mt-16">
+        <h2 className="text-2xl font-semibold mb-4 mt-6">Students List</h2>
+        <Table columns={columns} data={students} />
+      </div>
     </div>
   );
 };

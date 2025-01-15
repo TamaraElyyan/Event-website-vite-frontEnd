@@ -28,8 +28,8 @@ const Header = () => {
     location.pathname === "/dashboard" ||
     location.pathname === "/Register" ||
     location.pathname === "/login" ||
-    location.pathname === "/StudentsList" 
-
+    location.pathname === "/StudentsList" ||
+    location.pathname === "/EventsList"
   ) {
     return null;
   }

@@ -1,111 +1,101 @@
-import React, { useContext, Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { AuthContext } from "../Context/AuthContext";
-import PropTypes from "prop-types";
+// components/AppRouter.js
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "../components/Header";
+import ProtectedRoute from "./ProtectedRoute";
+import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 
-// General Components
+// Import all views directly
 import Login from "../views/Login";
 import Register from "../views/Register";
 import Home from "../views/Home";
 import About from "../views/About";
 import Partners from "../views/Partners";
 import Contact from "../views/Contact";
-import Header from "../components/Header";
-
-// Lazy-loaded Components
-import  Dashboard from "../views/Dashboard";
-import StudentProfile  from "../views/StudentProfile";
+import Dashboard from "../views/Dashboard";
+import StudentProfile from "../views/StudentProfile";
 import InstructorProfile from "../views/InstructorProfile";
 import NotFound from "../views/NotFound";
 import StudentsList from "../views/StudentsList";
+import EventsList from "../views/EventsList";
 
-// ProtectedRoute Component for Guarding Routes
-const ProtectedRoute = ({ children, allowedRoles }) => {
-  const { auth } = useContext(AuthContext);
-  auth.role='ADMIN'
-    console.log('cc'+auth.role)
-  
-  const getRedirectPath = () => {
-    if (!auth.token) return "/login";
-    if (auth.role === "STUDENT") return "/student-profile";
-    if (auth.role === "INSTRUCTOR") return "/instructor-profile";
-    if (auth.role === "Admin") return "/dashboard";
-
-    return "/"; // Default redirect path if user has no access rights
-  };
-
-  if (!auth.token) return <Navigate to="/login" replace />;
-  if (!allowedRoles.includes(auth.role)) {
-    return <Navigate to={getRedirectPath()} replace />;
-
-  }
-  return children;
-};
-
-// PropTypes for ProtectedRoute
-ProtectedRoute.propTypes = {
-  children: PropTypes.node.isRequired, // React Node validation for children
-  allowedRoles: PropTypes.arrayOf(PropTypes.string).isRequired, // Array of allowed roles
+// Layout Component with Sidebar and Navbar
+const LayoutWithSidebarAndNavbar = ({ children }) => {
+  return (
+    <div style={{ display: "flex" }}>
+      <Sidebar />
+      <div style={{ flex: 1 }}>
+        <Navbar />
+        <main>{children}</main>
+      </div>
+    </div>
+  );
 };
 
 const AppRouter = () => {
   return (
     <Router>
-      {/* Include Header outside Routes to make it accessible on all pages except dashboard */}
       <Header />
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/partners" element={<Partners />} />
+        <Route path="/contact" element={<Contact />} />
 
-      <Suspense
-        fallback={<div className="text-center">Loading... Please wait...</div>}
-      >
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/partners" element={<Partners />} />
-          <Route path="/contact" element={<Contact />} />
-          {/* Protected Routes */}
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
+        {/* Protected Routes */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
+              <LayoutWithSidebarAndNavbar>
                 <Dashboard />
-              
-               </ProtectedRoute>
-               
-            }
-          />
-           <Route
-            path="/StudentsList"
-            element={
-              <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
-        
-                <StudentsList/>
-               </ProtectedRoute>
-               
-            }
-          />
-          <Route
-            path="/student-profile"
-            element={
-              <ProtectedRoute allowedRoles={["STUDENT"]}>
-                <StudentProfile />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/instructor-profile"
-            element={
-              <ProtectedRoute allowedRoles={["INSTRUCTOR"]}>
-                <InstructorProfile />
-              </ProtectedRoute>
-            }
-          />
-          {/* Default Route for Not Found */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Suspense>
+              </LayoutWithSidebarAndNavbar>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/StudentsList"
+          element={
+            <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
+              <LayoutWithSidebarAndNavbar>
+                <StudentsList />
+              </LayoutWithSidebarAndNavbar>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/EventsList"
+          element={
+            <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
+              <LayoutWithSidebarAndNavbar>
+                <EventsList />
+              </LayoutWithSidebarAndNavbar>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student-profile"
+          element={
+            <ProtectedRoute allowedRoles={["STUDENT"]}>
+              <StudentProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/instructor-profile"
+          element={
+            <ProtectedRoute allowedRoles={["INSTRUCTOR"]}>
+              <InstructorProfile />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Default Route for Not Found */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </Router>
   );
 };
