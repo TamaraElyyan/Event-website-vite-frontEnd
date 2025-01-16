@@ -5,7 +5,6 @@ import LOGIN from "../assets/PNG/Login.png";
 import vector1 from "../assets/PNG/Vector1.png";
 import vector2 from "../assets/PNG/Vector2.png";
 import vector3 from "../assets/PNG/Vector3.png";
-console.log("cccccc");
 
 const Login = () => {
   const { login } = useContext(AuthContext);
@@ -20,41 +19,64 @@ const Login = () => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
-    console.log("cccccc")
 
     try {
-      console.log("cccccc2")
+      // First API call: Login
       const response = await axiosInstance.post("auth/login", {
         username,
         password,
       });
 
-      console.log("cccccc3")
-
-      console.log(response)
       if (response.status === 200 && response.data) {
-        //const token = response.data; // Assuming response.data contains the token
-        const token  = response.data;
-        // console.log(response.data);
-          localStorage.setItem("token",token);
-          localStorage.setItem("username",username);
-          localStorage.setItem("rememberMe",rememberMe);
-           console.log(token,username)
-          login(token, username, rememberMe);
-        // login(token, username, rememberMe); // Pass token, username, and rememberMe to the login function
-        window.location.href = "/dashboard"; // Redirect to the dashboard
+        const token = response.data;
+
+        try {
+          // Second API call: Fetch user details
+          const userResponse = await axiosInstance.get(
+            `http://localhost:8080/api/v1/user/${username}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          const userDetails = userResponse.data;
+          const role = userDetails.role; // Extract role
+
+          // Store in localStorage for persistence
+          localStorage.setItem("token", token);
+          localStorage.setItem("username", username);
+          localStorage.setItem("rememberMe", rememberMe);
+          localStorage.setItem("role", role);
+
+          // Pass the role to the login function
+          login(token, username, rememberMe, role);
+
+          // Redirect to the dashboard
+          window.location.href = "/dashboard";
+        } catch (userError) {
+          console.error(
+            "Error fetching user details:",
+            userError.response?.data || userError.message
+          );
+          setError("Failed to fetch user details. Please try again later.");
+        }
       } else {
         setError("Login failed. Please check your credentials.");
       }
     } catch (error) {
       setError(
         error.response?.data?.message ||
-        "Something went wrong. Please try again."
+          "Something went wrong. Please try again."
       );
     } finally {
       setIsLoading(false);
     }
   };
+
+
+
 
   return (
     <div className="flex justify-center items-center h-screen bg-[#1C1D21] overflow-hidden">

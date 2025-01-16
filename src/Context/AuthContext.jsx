@@ -7,27 +7,29 @@ export const AuthProvider = ({ children }) => {
     token: localStorage.getItem("token") || null,
     username: localStorage.getItem("username") || null,
     rememberMe: localStorage.getItem("rememberMe") === "true",
+    role: localStorage.getItem("role") || null, // Add role
   });
 
   useEffect(() => {
-    console.log(auth.username + auth.rememberMe);
     if (auth.rememberMe) {
       localStorage.setItem("token", auth.token || "");
       localStorage.setItem("username", auth.username || "");
       localStorage.setItem("rememberMe", "true");
+      localStorage.setItem("role", auth.role || ""); // Persist role
     } else {
       // localStorage.removeItem("token");
       // localStorage.removeItem("username");
       // localStorage.removeItem("rememberMe");
+      // localStorage.removeItem("role");
     }
   }, [auth]);
 
-  const login = (token, username, rememberMe) => {
-    setAuth({ token, username, rememberMe });
+  const login = (token, username, rememberMe, role) => {
+    setAuth({ token, username, rememberMe, role });
   };
 
   const logout = () => {
-    setAuth({ token: null, username: null, rememberMe: false });
+    setAuth({ token: null, username: null, rememberMe: false, role: null });
   };
 
   return (
