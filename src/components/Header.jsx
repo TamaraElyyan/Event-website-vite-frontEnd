@@ -24,15 +24,15 @@ const Header = () => {
   };
 
   // Hide the header on certain pages
-  if (
-    location.pathname === "/dashboard" ||
-    location.pathname === "/Register" ||
-    location.pathname === "/login" ||
-    location.pathname === "/StudentsList" ||
-    location.pathname === "/EventsList"
-  ) {
-    return null;
-  }
+  // if (
+  //   location.pathname === "/dashboard" ||
+  //   location.pathname === "/Register" ||
+  //   location.pathname === "/login" ||
+  //   location.pathname === "/StudentsList" ||
+  //   location.pathname === "/EventsList"
+  // ) {
+  //   return null;
+  // }
 
   return (
     <header className="fixed left-0 right-0 z-50 text-gray-800 p-4 bg-white px-6">

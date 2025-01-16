@@ -1,10 +1,5 @@
-
-
 const StudentProfile = () => {
+  return <div></div>;
+};
 
-    return <div>NotFound</div>;
-  
-  };
-  
-  export default StudentProfile;
-  
+export default StudentProfile;

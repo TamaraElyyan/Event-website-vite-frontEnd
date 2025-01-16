@@ -1,4 +1,3 @@
-// components/ProtectedRoute.js
 import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -11,9 +10,9 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 
   const getRedirectPath = () => {
     if (!auth.token) return "/login";
-    if (auth.role === "STUDENT") return "/student-profile";
-    if (auth.role === "INSTRUCTOR") return "/instructor-profile";
-    if (auth.role === "Admin") return "/dashboard";
+    if (auth.role === "STUDENT") return "/StudentUpdateProfile";
+    if (auth.role === "INSTRUCTOR") return "/ InstructorUpdateProfile";
+    if (auth.role === "ADMIN") return "/dashboard";
 
     return "/"; // Default redirect path if user has no access rights
   };

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext();
 
@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   });
 
   useEffect(() => {
-  console.log(auth.username+auth.rememberMe);
+    console.log(auth.username + auth.rememberMe);
     if (auth.rememberMe) {
       localStorage.setItem("token", auth.token || "");
       localStorage.setItem("username", auth.username || "");
