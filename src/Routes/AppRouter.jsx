@@ -18,7 +18,7 @@ import StudentsList from "../views/StudentsList";
 import EventsList from "../views/EventsList";
 import StudentUpdateProfile from "../views/StudentUpdateProfile";
 import InstructorUpdateProfile from "../views/InstructorUpdateProfile";
-
+import InstructorsList from "../views/InstructorsList";
 const AppRouter = () => {
   return (
     <Router>
@@ -82,6 +82,16 @@ const AppRouter = () => {
             <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
               <WrapperWithSidebarAndNavbar>
                 <StudentsList />
+              </WrapperWithSidebarAndNavbar>
+            </ProtectedRoute>
+          }
+        />
+          <Route
+          path="/InstructorsList"
+          element={
+            <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
+              <WrapperWithSidebarAndNavbar>
+                <InstructorsList />
               </WrapperWithSidebarAndNavbar>
             </ProtectedRoute>
           }
