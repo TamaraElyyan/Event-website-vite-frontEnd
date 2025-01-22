@@ -20,16 +20,22 @@ const Login = () => {
     setError("");
     setIsLoading(true);
 
+    console.log("nnnnnnnnnnnn")
+
     try {
       // First API call: Login
+      console.log("nnnnnnnnnnnn"+username)
+      console.log("nnnnnnnnnnnn"+password)
+
       const response = await axiosInstance.post("auth/login", {
         username,
         password,
       });
+      console.log(response.status)
 
       if (response.status === 200 && response.data) {
         const token = response.data;
-
+ 
         try {
           // Second API call: Fetch user details
           const userResponse = await axiosInstance.get(

@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../API/axios/axiosInstance";
+import { AuthContext } from "../Context/AuthContext"; // Assuming AuthContext is in the same folder
+
+
 
 const StudentUpdateProfile = () => {
+  const { auth, logout } = useContext(AuthContext);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -19,16 +24,21 @@ const StudentUpdateProfile = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const username = "Tamara112";
+  const username = auth.username;
 
   useEffect(() => {
     const fetchUserData = async () => {
+      console.log("xxxxxxxxxxxxxxxxxxx"+auth.username)
       setLoading(true);
+
       try {
-        const response = await axiosInstance.get(
-          `http://localhost:8080/api/v1/student/${username}/updateStudentProfile`
-        );
-        setFormData(response.data);
+        const response = await axiosInstance.get(`user/${auth.username}`, {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        });
+        console.log(response)
+         setFormData(response.data);
       } catch (err) {
         setError("Failed to load user data.");
       } finally {
@@ -49,8 +59,8 @@ const StudentUpdateProfile = () => {
     setLoading(true);
     try {
       await axiosInstance.put(
-        `http://localhost:8080/api/v1/student/${username}/updateStudentProfile`,
-        formData
+        `student/${auth.username}/updateStudentProfile`,
+        
       );
       setSuccess(true);
       setTimeout(() => navigate("/"), 1000);

@@ -146,7 +146,7 @@ const Sidebar = () => {
           {/* Organization */}
           <li>
             <button
-              onClick={() => navigate("/organization")}
+              onClick={() => navigate("/OrganizationsList")}
               className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-lg"
             >
               <FaRegBuilding className="text-xl" />
