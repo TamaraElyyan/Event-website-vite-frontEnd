@@ -74,12 +74,12 @@ const Profile = () => {
       >
         {/* Use the ImageProfile component */}
         <ImageProfile
-         token={auth.token} 
+          token={auth.token}
           imageFilename={user.profileImage} // Pass the image filename
           altText={user.username || "User"}
         />
         {/* Display the username */}
-        <span className="p-2 text-black font-medium">
+        <span className="p-2 text-black font-medium hidden sm:block">
           {user.username || "User"}
         </span>
       </div>

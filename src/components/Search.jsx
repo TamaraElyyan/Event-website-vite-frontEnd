@@ -2,7 +2,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
 const Search = () => {
   return (
-    <div className="flex items-center border rounded-lg bg-white p-2 max-w-full sm:max-w-xs w-full">
+    <div className="flex items-center border rounded-lg bg-white p-2 w-full max-w-xs">
       <MagnifyingGlassIcon className="h-5 w-5 text-gray-500 mr-2" />
       <input
         type="text"

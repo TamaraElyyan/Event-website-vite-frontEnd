@@ -88,7 +88,7 @@ const AppRouter = () => {
           }
         />
 
-<Route
+        <Route
           path="/OrganizationsList"
           element={
             <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
@@ -98,7 +98,7 @@ const AppRouter = () => {
             </ProtectedRoute>
           }
         />
-          <Route
+        <Route
           path="/InstructorsList"
           element={
             <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
@@ -144,9 +144,9 @@ const AppRouter = () => {
           path="/StudentUpdateProfile"
           element={
             <ProtectedRoute allowedRoles={["STUDENT"]}>
-              <WrapperWithoutSidebar>
-                <StudentUpdateProfile />
-              </WrapperWithoutSidebar>
+              {/* <WrapperWithoutSidebar> */}
+              <StudentUpdateProfile />
+              {/* </WrapperWithoutSidebar> */}
             </ProtectedRoute>
           }
         />
