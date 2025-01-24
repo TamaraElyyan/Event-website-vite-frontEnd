@@ -5,12 +5,14 @@ import Footer from "../components/Footer";
 
 const About = () => {
   return (
-    <div className="bg-gray-50 px-6 md:px-16 lg:px-24 py-12 space-y-12">
-      <AboutUs />
-      <Feature />
-      <Benefits />
+    <>
+      <div className="bg-gray-50 px-6 md:px-16 lg:px-24 py-12 space-y-12">
+        <AboutUs />
+        <Feature />
+        <Benefits />
+      </div>
       <Footer />
-    </div>
+    </>
   );
 };
 

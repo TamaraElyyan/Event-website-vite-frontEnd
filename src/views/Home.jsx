@@ -1,6 +1,8 @@
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import HeroSection from "../components/Hero";
+import Hero from "../components/Hero";
+import FeatursHome from "../components/FeatursHome";
+import Testimonials from "../components/Testimonials";
 
 const Home = () => {
   return (
@@ -9,7 +11,16 @@ const Home = () => {
       <Header />
 
       {/* Hero Section */}
-      <HeroSection />
+      <Hero />
+
+      {/* Features Section */}
+      <FeatursHome />
+
+      {/* Testimonials Section */}
+
+      <Testimonials />
+
+      {/* Footer */}
       <Footer />
     </div>
   );

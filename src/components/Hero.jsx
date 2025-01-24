@@ -6,8 +6,8 @@ import "swiper/css/pagination";
 
 import GetStartedButton from "./GetStartedButton";
 import HeroImage1 from "../assets/PNG/hero2.jpeg"; // Replace with your actual paths
-import HeroImage2 from "../assets/PNG/hero2.jpeg";
-import HeroImage3 from "../assets/PNG/hero2.jpeg";
+import HeroImage2 from "../assets/PNG/hero3.png";
+import HeroImage3 from "../assets/PNG/hero4.png.jpg";
 
 const Hero = () => {
   return (
