@@ -1,3 +1,4 @@
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 import HeroSection from "../components/Hero";
 
@@ -9,6 +10,7 @@ const Home = () => {
 
       {/* Hero Section */}
       <HeroSection />
+      <Footer />
     </div>
   );
 };

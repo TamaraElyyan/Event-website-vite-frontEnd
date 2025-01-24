@@ -258,5 +258,4 @@ const StudentUpdateProfile = () => {
     </div>
   );
 };
-
 export default StudentUpdateProfile;
