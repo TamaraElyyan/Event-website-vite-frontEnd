@@ -219,8 +219,8 @@ const StudentUpdateProfile = () => {
           >
             <option value="">Select a City</option>
             {cities.map((city) => (
-              <option key={city.id} value={city.name}>
-                {city.name}
+              <option key={city.id} value={city.nameEn}>
+                {city.nameEn}
               </option>
             ))}
           </select>
