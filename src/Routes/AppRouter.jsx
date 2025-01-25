@@ -20,6 +20,8 @@ import StudentUpdateProfile from "../views/StudentUpdateProfile";
 import InstructorUpdateProfile from "../views/InstructorUpdateProfile";
 import InstructorsList from "../views/InstructorsList";
 import OrganizationsList from "../views/OrganizationsList";
+import CoursesList from "../views/CoursesList";
+import AddCourse from "../views/AddCourse";
 const AppRouter = () => {
   return (
     <Router>
@@ -109,6 +111,27 @@ const AppRouter = () => {
           }
         />
         <Route
+          path="/CoursesList"
+          element={
+            <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
+              <WrapperWithSidebarAndNavbar>
+                <CoursesList />
+              </WrapperWithSidebarAndNavbar>
+            </ProtectedRoute>
+          }
+        />
+          <Route
+          path="/AddCourse"
+          element={
+            <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
+              <WrapperWithSidebarAndNavbar>
+                <AddCourse />
+              </WrapperWithSidebarAndNavbar>
+            </ProtectedRoute>
+          }
+        />
+
+<Route
           path="/EventsList"
           element={
             <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>

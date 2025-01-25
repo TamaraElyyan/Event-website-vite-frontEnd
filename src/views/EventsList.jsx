@@ -3,35 +3,56 @@ import axiosInstance from "../API/axios/axiosInstance";
 import Table from "../components/Table";
 
 const EventsList = () => {
-  const [events, setEvents] = useState([]);
+  const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchEvents = async () => {
+    const fetchCourses= async () => {
       try {
-        const response = await axiosInstance.get("event/eventList");
+        const response = await axiosInstance.get("training/eventList");
         if (Array.isArray(response.data)) {
-          setEvents(response.data);
+          setCourses(response.data);
         } else {
           throw new Error("Unexpected response format");
         }
       } catch (err) {
         console.error("Fetch error:", err.response || err.message);
-        setError("Failed to fetch events. Please try again later.");
+        setError("Failed to fetch Courses. Please try again later.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchEvents();
+    fetchCourses();
   }, []);
+
+  // Handle edit action
+  const handleEdit = (course) => {
+    console.log("Edit course:", course);
+    // Add logic to handle edit, e.g., open a modal with the Course's details
+  };
+
+  // Handle delete action
+  const handleDelete = async (id) => {
+    try {
+      console.log("Deleting course with ID:", id);
+      await axiosInstance.delete(`trainig/delete/${id}`); // Replace with your API endpoint for deleting a Course
+      setCourses(courses.filter((course) => course.id !== id));
+    } catch (err) {
+      console.error("Delete error:", err.response || err.message);
+      setError("Failed to delete course. Please try again later.");
+    }
+  };
 
   const columns = [
     { header: "ID", accessor: "id" },
-    { header: "Event Name", accessor: "name" },
-    { header: "Date", accessor: "date" },
-    { header: "Location", accessor: "location" },
+    { header: "Name", accessor: "trainingName" },
+    { header: "NumberOfStudentsEnrolled", accessor: "numberOfStudentsEnrolled" },
+    {header:"maxNumberOfStudents",accessor:"maxNumberOfStudents"},
+    {header:"endRegistration",accessor:"endRegistration"},
+
+    
   ];
 
   if (loading) {
@@ -55,14 +76,16 @@ const EventsList = () => {
       {/* Sidebar (left side) */}
       <div className="w-1/6 h-full"></div>
 
+ 
       {/* Main Content (right side) */}
-      <div className="flex-1 flex flex-col ml-0 lg:ml-1 overflow-y-auto pl-4 pr-4 lg:pl-6 lg:pr-11 relative mt-16">
-        <h2 className="text-2xl font-semibold mb-4 mt-6">Events List</h2>
+      <div className="flex-1 flex flex-col ml-0 lg:ml-1 overflow-y-auto pr-4 lg:pl-8 lg:pr-11 relative mt-16">
+        <h2 className="text-2xl font-semibold mb-4 mt-6">Courses List</h2>
+
         <Table
           columns={columns}
-          data={events}
-          onEdit={() => {}}
-          onDelete={() => {}}
+          data={courses}
+          onEdit={handleEdit} // Pass handleEdit function
+          onDelete={handleDelete} // Pass handleDelete function
         />
       </div>
     </div>
