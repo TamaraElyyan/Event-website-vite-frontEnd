@@ -4,8 +4,8 @@ import { AuthContext } from "../Context/AuthContext"; // Assuming AuthContext is
 import ImageProfile from "./ImageProfile"; // Import the ImageProfile component
 
 const Profile = () => {
-  // State variables
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false); // State to toggle the modal
   const [user, setUser] = useState({
     name: "",
     profileImage: "",
@@ -14,19 +14,12 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Access AuthContext
   const { auth, logout } = useContext(AuthContext);
 
-  // Memoizing the base URL to prevent unnecessary recalculations
   const baseUrl = useMemo(() => import.meta.env.VITE_API_BASE_URL, []);
 
-  // Fetch user data when the component mounts or when the token or username changes
   useEffect(() => {
     const fetchUserData = async () => {
-      console.log(auth.username);
-      console.log(auth.token);
-
-      // Check if token and username are available in AuthContext
       if (!auth.token || !auth.username) {
         console.error("Token or username missing in AuthContext");
         setLoading(false);
@@ -35,17 +28,15 @@ const Profile = () => {
       }
 
       try {
-        // Fetch user data from the API
         const response = await axios.get(`${baseUrl}/user/${auth.username}`, {
           headers: {
             Authorization: `Bearer ${auth.token}`,
           },
         });
 
-        // If the response contains the profile image filename, set the user data
         const profileImageUrl = response.data.profilePictureUrl
-          ? response.data.profilePictureUrl
-          : ""; // Set empty string for the image filename
+          ? `http://localhost:8080/api/v1/user/profilePicture/${response.data.profilePictureUrl}`
+          : "";
 
         setUser({
           name: response.data.name,
@@ -63,6 +54,18 @@ const Profile = () => {
     fetchUserData();
   }, [auth.token, auth.username, baseUrl]);
 
+  // Handle image change action
+  const handleChangeImage = () => {
+    console.log("Change image clicked");
+    // Add logic for uploading a new image here
+  };
+
+  // Handle image remove action
+  const handleRemoveImage = () => {
+    console.log("Remove image clicked");
+    // Add logic for removing the current image here
+  };
+
   if (loading) return <div>Loading...</div>; // Loading state
   if (error) return <div>{error}</div>; // Error state
 
@@ -72,12 +75,25 @@ const Profile = () => {
         className="flex items-center cursor-pointer"
         onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)} // Toggle profile menu
       >
-        {/* Use the ImageProfile component */}
-        <ImageProfile
-          token={auth.token}
-          imageFilename={user.profileImage} // Pass the image filename
-          altText={user.username || "User"}
-        />
+        {/* Profile image with edit icon */}
+        <div className="relative" onClick={() => setShowModal(true)}>
+          <ImageProfile
+            token={auth.token}
+            imageFilename={user.profileImage} // Pass the image filename
+            altText={user.username || "User"}
+          />
+          {/* Edit icon overlay */}
+          <div className="absolute bottom-0 right-0 bg-gray-700 text-white p-1 rounded-full">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M17.414 2.586a2 2 0 00-2.828 0L3 14.172V17h2.828l11.586-11.586a2 2 0 000-2.828zM5 15v-1.414l9.586-9.586 1.414 1.414L6.414 15H5z" />
+            </svg>
+          </div>
+        </div>
         {/* Display the username */}
         <span className="p-2 text-black font-medium hidden sm:block">
           {user.username || "User"}
@@ -94,6 +110,44 @@ const Profile = () => {
             Logout
           </li>
         </ul>
+      )}
+
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-96">
+            <h2 className="text-lg font-bold mb-4">Profile picture</h2>
+            <p className="text-sm text-gray-600 mb-4">
+              A picture helps people recognize you and lets you know when you’re
+              signed in to your account.
+            </p>
+            <div className="flex justify-center mb-4">
+              <img
+                src={user.profileImage}
+                alt="Profile"
+                className="w-32 h-32 rounded-full object-cover"
+              />
+            </div>
+            <button
+              onClick={handleChangeImage}
+              className="w-full bg-blue-500 text-white py-2 px-4 rounded-md mb-2 hover:bg-blue-600"
+            >
+              Change
+            </button>
+            <button
+              onClick={handleRemoveImage}
+              className="w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600"
+            >
+              Remove
+            </button>
+            <button
+              onClick={() => setShowModal(false)}
+              className="w-full mt-2 bg-gray-300 text-black py-2 px-4 rounded-md hover:bg-gray-400"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
