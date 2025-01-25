@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, useMemo } from "react";
 import axios from "axios";
-import { AuthContext } from "../Context/AuthContext"; // Assuming AuthContext is in the same folder
-import ImageProfile from "./ImageProfile"; // Import the ImageProfile component
+import { AuthContext } from "../Context/AuthContext";
+import ImageProfile from "./ImageProfile";
 
 const Profile = () => {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -55,15 +55,58 @@ const Profile = () => {
   }, [auth.token, auth.username, baseUrl]);
 
   // Handle image change action
-  const handleChangeImage = () => {
-    console.log("Change image clicked");
-    // Add logic for uploading a new image here
+  const handleChangeImage = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("profileImage", file);
+
+    try {
+      const response = await axios.post(
+        `${baseUrl}/user/uploadProfileImage`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      // Update profile image URL
+      const newProfileImageUrl = `http://localhost:8080/api/v1/user/profilePicture/${response.data.newImageFilename}`;
+      setUser((prevState) => ({
+        ...prevState,
+        profileImage: newProfileImageUrl,
+      }));
+
+      console.log("Profile image updated successfully!");
+      setShowModal(false); // Close the modal
+    } catch (err) {
+      console.error("Error uploading profile image:", err);
+    }
   };
 
   // Handle image remove action
-  const handleRemoveImage = () => {
-    console.log("Remove image clicked");
-    // Add logic for removing the current image here
+  const handleRemoveImage = async () => {
+    try {
+      await axios.delete(`${baseUrl}/user/deleteProfileImage`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      });
+
+      setUser((prevState) => ({
+        ...prevState,
+        profileImage: "",
+      }));
+
+      console.log("Profile image removed successfully!");
+      setShowModal(false); // Close the modal
+    } catch (err) {
+      console.error("Error removing profile image:", err);
+    }
   };
 
   if (loading) return <div>Loading...</div>; // Loading state
@@ -128,8 +171,16 @@ const Profile = () => {
                 className="w-32 h-32 rounded-full object-cover"
               />
             </div>
+            {/* Hidden file input */}
+            <input
+              type="file"
+              id="fileInput"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleChangeImage}
+            />
             <button
-              onClick={handleChangeImage}
+              onClick={() => document.getElementById("fileInput").click()}
               className="w-full bg-blue-500 text-white py-2 px-4 rounded-md mb-2 hover:bg-blue-600"
             >
               Change
