@@ -87,7 +87,7 @@ const Sidebar = () => {
             >
               <BsBook className="text-xl" />
               <span className={`${isSidebarOpen ? "ml-4" : "hidden"}`}>
-                Training
+                Trainings
               </span>
               <FiChevronDown
                 className={`ml-auto transition-transform ${
@@ -138,7 +138,7 @@ const Sidebar = () => {
             >
               <FaChalkboardTeacher className="text-xl" />
               <span className={`${isSidebarOpen ? "ml-4" : "hidden"}`}>
-                Teachers
+                Instructors
               </span>
             </button>
           </li>
@@ -151,7 +151,7 @@ const Sidebar = () => {
             >
               <FaRegBuilding className="text-xl" />
               <span className={`${isSidebarOpen ? "ml-4" : "hidden"}`}>
-                Organization
+                Organizations
               </span>
             </button>
           </li>

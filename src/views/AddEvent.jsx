@@ -4,7 +4,7 @@ import axiosInstance from "../API/axios/axiosInstance";
 import { AuthContext } from "../Context/AuthContext";
 import types from "../constants/types";
 
-const AddCourse = () => {
+const AddEvent = () => {
   const { auth } = useContext(AuthContext);
   const [organizations, setOrganizations] = useState([]);
   const [instructors, setInstructors] = useState([]);
@@ -15,7 +15,7 @@ const AddCourse = () => {
     trainingDescription: "",
     maxNumberOfStudents: 0,
     endRegistration: "",
-    type: "TRAINING_COURSE", // Default value
+    type: "EVENT", // Default value
     organizationIds: "",
     instructorIds: "",
   });
@@ -77,9 +77,9 @@ const AddCourse = () => {
       await axiosInstance.post("/training/addingNew", requestBody, {
         headers: { Authorization: `Bearer ${auth.token}` },
       });
-      navigate("/CoursesList"); // Redirect on success
+      navigate("/EventsList"); // Redirect on success
     } catch (err) {
-      console.error("Failed to add course:", err);
+      console.error("Failed to add event:", err);
     }
   };
 
@@ -89,17 +89,17 @@ const AddCourse = () => {
 
       <div className="flex-1 flex flex-col ml-0 lg:ml-1 overflow-y-auto pr-4 lg:pl-8 lg:pr-11 relative mt-16">
         <div className="p-8">
-          <h2 className="text-2xl font-semibold mb-6">Add a New Course</h2>
+          <h2 className="text-2xl font-semibold mb-6">Add a New event</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-1">Course Name</label>
+              <label className="block text-sm font-medium mb-1">Event Name</label>
               <input
                 type="text"
                 name="trainingName"
                 value={formData.trainingName}
                 onChange={handleChange}
                 className="w-full border rounded py-2 px-3"
-                placeholder="Enter course name"
+                placeholder="Enter event name"
                 required
               />
             </div>
@@ -110,13 +110,13 @@ const AddCourse = () => {
                 value={formData.trainingDescription}
                 onChange={handleChange}
                 className="w-full border rounded py-2 px-3"
-                placeholder="Enter course description"
+                placeholder="Enter event description"
                 required
               ></textarea>
             </div>
             <div>
-            <label className="block text-sm font-medium mb-1">Max Number of Students</label>
-            <input
+              <label className="block text-sm font-medium mb-1">Max Number of Students</label>
+              <input
                 type="number"
                 name="maxNumberOfStudents"
                 value={formData.maxNumberOfStudents}
@@ -202,4 +202,4 @@ const AddCourse = () => {
   );
 };
 
-export default AddCourse;
+export default AddEvent;

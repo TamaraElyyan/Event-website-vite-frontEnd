@@ -22,6 +22,7 @@ import InstructorsList from "../views/InstructorsList";
 import OrganizationsList from "../views/OrganizationsList";
 import CoursesList from "../views/CoursesList";
 import AddCourse from "../views/AddCourse";
+import AddEvent from "../views/AddEvent";
 const AppRouter = () => {
   return (
     <Router>
@@ -141,7 +142,17 @@ const AppRouter = () => {
             </ProtectedRoute>
           }
         />
-
+        
+        <Route
+          path="/AddEvent"
+          element={
+            <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
+              <WrapperWithSidebarAndNavbar>
+                <AddEvent />
+              </WrapperWithSidebarAndNavbar>
+            </ProtectedRoute>
+          }
+        />
         {/* Protected Routes without Sidebar */}
         <Route
           path="/StudentProfile"

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../API/axios/axiosInstance";
 import Table from "../components/Table";
-
+import { useNavigate } from "react-router-dom";
 const EventsList = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCourses= async () => {
@@ -75,11 +76,22 @@ const EventsList = () => {
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar (left side) */}
       <div className="w-1/6 h-full"></div>
-
- 
+  
       {/* Main Content (right side) */}
       <div className="flex-1 flex flex-col ml-0 lg:ml-1 overflow-y-auto pr-4 lg:pl-8 lg:pr-11 relative mt-16">
-        <h2 className="text-2xl font-semibold mb-4 mt-6">Courses List</h2>
+        {/* Add Button */}
+        <div className="flex justify-end mt-8">
+          <button
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded shadow"
+            // onClick={handleAdd}
+            onClick={() => navigate("/AddEvent")}
+
+             // Function to handle adding a new course
+          >
+            + Add Event
+          </button>
+        </div>
+        <h2 className="text-2xl font-semibold mb-4 mt-6">Events List</h2>
 
         <Table
           columns={columns}
