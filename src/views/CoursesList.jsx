@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import axiosInstance from "../API/axios/axiosInstance";
-import Table from "../components/Table";
 import { useNavigate } from "react-router-dom";
+import Table from "../components/Table";
+import { fetchCourses, deleteCourse } from "../API/endpoint/Training";
 
 const CoursesList = () => {
   const [courses, setCourses] = useState([]);
@@ -12,12 +12,13 @@ const CoursesList = () => {
   const handleAdd = () => {
     navigate("/addCourse"); // Navigate to the Add Course page
   };
+
   useEffect(() => {
-    const fetchCourses= async () => {
+    const getCourses = async () => {
       try {
-        const response = await axiosInstance.get("training/courseList");
-        if (Array.isArray(response.data)) {
-          setCourses(response.data);
+        const data = await fetchCourses();
+        if (Array.isArray(data)) {
+          setCourses(data);
         } else {
           throw new Error("Unexpected response format");
         }
@@ -29,20 +30,14 @@ const CoursesList = () => {
       }
     };
 
-    fetchCourses();
+    getCourses();
   }, []);
-
-  // Handle edit action
-  const handleEdit = (course) => {
-    console.log("Edit course:", course);
-    // Add logic to handle edit, e.g., open a modal with the Course's details
-  };
 
   // Handle delete action
   const handleDelete = async (id) => {
     try {
       console.log("Deleting course with ID:", id);
-      await axiosInstance.delete(`trainig/delete/${id}`); // Replace with your API endpoint for deleting a Course
+      await deleteCourse(id); // Call API to delete course
       setCourses(courses.filter((course) => course.id !== id));
     } catch (err) {
       console.error("Delete error:", err.response || err.message);
@@ -53,11 +48,12 @@ const CoursesList = () => {
   const columns = [
     { header: "ID", accessor: "id" },
     { header: "Name", accessor: "trainingName" },
-    { header: "NumberOfStudentsEnrolled", accessor: "numberOfStudentsEnrolled" },
-    {header:"maxNumberOfStudents",accessor:"maxNumberOfStudents"},
-    {header:"endRegistration",accessor:"endRegistration"},
-
-    
+    {
+      header: "NumberOfStudentsEnrolled",
+      accessor: "numberOfStudentsEnrolled",
+    },
+    { header: "Max Number Of Students", accessor: "maxNumberOfStudents" },
+    { header: "End Registration", accessor: "endRegistration" },
   ];
 
   if (loading) {
@@ -80,33 +76,29 @@ const CoursesList = () => {
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar (left side) */}
       <div className="w-1/6 h-full"></div>
-  
+
       {/* Main Content (right side) */}
       <div className="flex-1 flex flex-col ml-0 lg:ml-1 overflow-y-auto pr-4 lg:pl-8 lg:pr-11 relative mt-16">
         {/* Add Button */}
         <div className="flex justify-end mt-8">
           <button
             className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded shadow"
-            // onClick={handleAdd}
-            onClick={() => navigate("/AddCourse")}
-
-             // Function to handle adding a new course
+            onClick={handleAdd}
           >
             + Add Course
           </button>
         </div>
-  
+
         <h2 className="text-2xl font-semibold mb-4 mt-3">Courses List</h2>
         <Table
           columns={columns}
           data={courses}
-          onEdit={handleEdit} 
-          onDelete={handleDelete} 
+          onEdit={(course) => console.log("Edit course:", course)} // Handle edit
+          onDelete={handleDelete} // Handle delete
         />
       </div>
     </div>
   );
-  
 };
 
 export default CoursesList;

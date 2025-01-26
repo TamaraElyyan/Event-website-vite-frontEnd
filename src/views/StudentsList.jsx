@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axiosInstance from "../API/axios/axiosInstance";
+import { fetchStudents, deleteStudent } from "../API/endpoint/Student";
 import Table from "../components/Table";
 
 const StudentsList = () => {
@@ -8,11 +8,11 @@ const StudentsList = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchStudents = async () => {
+    const getStudents = async () => {
       try {
-        const response = await axiosInstance.get("student/studentList");
-        if (Array.isArray(response.data)) {
-          setStudents(response.data);
+        const data = await fetchStudents();
+        if (Array.isArray(data)) {
+          setStudents(data);
         } else {
           throw new Error("Unexpected response format");
         }
@@ -24,20 +24,20 @@ const StudentsList = () => {
       }
     };
 
-    fetchStudents();
+    getStudents();
   }, []);
 
   // Handle edit action
   const handleEdit = (student) => {
     console.log("Edit student:", student);
-    // Add logic to handle edit, e.g., open a modal with the student's details
+    // Add logic to handle editing a student
   };
 
   // Handle delete action
   const handleDelete = async (id) => {
     try {
       console.log("Deleting student with ID:", id);
-      await axiosInstance.delete(`student/delete/${id}`); // Replace with your API endpoint for deleting a student
+      await deleteStudent(id);
       setStudents(students.filter((student) => student.id !== id));
     } catch (err) {
       console.error("Delete error:", err.response || err.message);
@@ -78,8 +78,8 @@ const StudentsList = () => {
         <Table
           columns={columns}
           data={students}
-          onEdit={handleEdit} // Pass handleEdit function
-          onDelete={handleDelete} // Pass handleDelete function
+          onEdit={handleEdit}
+          onDelete={handleDelete}
         />
       </div>
     </div>

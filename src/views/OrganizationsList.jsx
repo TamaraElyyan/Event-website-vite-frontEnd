@@ -8,9 +8,11 @@ const OrganizationsList = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchOrganizations= async () => {
+    const fetchOrganizations = async () => {
       try {
-        const response = await axiosInstance.get("organization/organizationList");
+        const response = await axiosInstance.get(
+          "organization/organizationList"
+        );
         if (Array.isArray(response.data)) {
           setOrganizations(response.data);
         } else {
@@ -38,7 +40,9 @@ const OrganizationsList = () => {
     try {
       console.log("Deleting instructor with ID:", id);
       await axiosInstance.delete(`instructor/delete/${id}`); // Replace with your API endpoint for deleting a instructor
-      setOrganizations(Organizations.filter((instructor) => instructor.id !== id));
+      setOrganizations(
+        Organizations.filter((instructor) => instructor.id !== id)
+      );
     } catch (err) {
       console.error("Delete error:", err.response || err.message);
       setError("Failed to delete instructor. Please try again later.");
