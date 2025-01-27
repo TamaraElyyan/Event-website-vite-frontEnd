@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const axiosInstance = axios.create({
+const axiosInstanceWeb = axios.create({
   baseURL: "http://localhost:8080/api/v1/",
   timeout: 5000,
   headers: {
@@ -9,17 +9,16 @@ const axiosInstance = axios.create({
   },
 });
 
-axiosInstance.interceptors.request.use(
-  (config) => {
-    // Check if the request should use the Bearer token
-    const token = localStorage.getItem("token");
-    if (token && config.useAuth !== false) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
+// axiosInstance.interceptors.request.use(
+//   (config) => {
+//     const token = localStorage.getItem("token");
+//     if (token) {
+//       config.headers.Authorization = `Bearer ${token}`;
+//     }
+//     return config;
+//   },
+//   (error) => Promise.reject(error)
+// );
 
 axiosInstance.interceptors.response.use(
   (response) => response,
@@ -31,4 +30,4 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export default axiosInstance;
+export default axiosInstanceWeb;

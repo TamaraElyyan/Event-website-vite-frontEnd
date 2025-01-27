@@ -30,22 +30,26 @@ const Login = () => {
       const response = await axiosInstance.post("auth/login", {
         username,
         password,
-      });
+      },   { useAuth: false }
+    );
       console.log(response.status)
+      console.log(response.data)
 
       if (response.status === 200 && response.data) {
         const token = response.data;
- 
+       console.log(username)
         try {
           // Second API call: Fetch user details
-          const userResponse = await axiosInstance.get(
-            `http://localhost:8080/api/v1/user/${username}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+          // const userResponse = await axiosInstance.get(
+          //   `http://localhost:8080/api/v1/user/${username}`,
+          //   {
+          //     headers: {
+          //       Authorization: `Bearer ${token}`,
+          //     },
+          //   },
+          // );
+          const userResponse = await axiosInstance.get(`user/${username}`); // No need to pass the token manually
+
 
           const userDetails = userResponse.data;
           const role = userDetails.role; // Extract role
