@@ -49,15 +49,15 @@ const Sidebar = () => {
       {/* Sidebar Header */}
       <div className="flex items-center justify-between px-4 py-4 border-b border-gray-300">
         <h1
-          className={`text-lg font-semibold text-[#925fe2] ${
+          className={`text-lg font-semibold text-[#8d64a3] ${
             isSidebarOpen ? "block" : "hidden"
           }`}
         >
-          <Logo className="text-[#aa85e3] font-bold" />
+          <Logo className="text-[#4D2C5E] font-bold" />
         </h1>
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="text-xl text-[#925fe2]"
+          className="text-xl text-[#8d64a3]"
         >
           {isSidebarOpen ? "<" : ">"}
         </button>
@@ -70,7 +70,7 @@ const Sidebar = () => {
           <li>
             <button
               onClick={() => navigate("/dashboard")}
-              className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-lg"
+              className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#8d64a3] to-[#aa85e3] hover:text-white rounded-lg"
             >
               <MdOutlineDashboard className="text-xl" />
               <span className={`${isSidebarOpen ? "ml-4" : "hidden"}`}>
@@ -82,7 +82,7 @@ const Sidebar = () => {
           {/* Training Section */}
           <li>
             <div
-              className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-lg cursor-pointer"
+              className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#8d64a3] to-[#aa85e3] hover:text-white rounded-lg cursor-pointer"
               onClick={() => setIsTrainingOpen(!isTrainingOpen)}
             >
               <BsBook className="text-xl" />
@@ -100,7 +100,7 @@ const Sidebar = () => {
                 <li>
                   <button
                     onClick={() => navigate("/CoursesList")}
-                    className="block px-4 py-2 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-lg"
+                    className="block px-4 py-2 hover:bg-gradient-to-r from-[#8d64a3] to-[#aa85e3] hover:text-white rounded-lg"
                   >
                     Courses List
                   </button>
@@ -108,7 +108,7 @@ const Sidebar = () => {
                 <li>
                   <button
                     onClick={() => navigate("/EventsList")}
-                    className="block px-4 py-2 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-lg"
+                    className="block px-4 py-2 hover:bg-gradient-to-r from-[#8d64a3] to-[#aa85e3] hover:text-white rounded-lg"
                   >
                     Events List
                   </button>
@@ -121,7 +121,7 @@ const Sidebar = () => {
           <li>
             <button
               onClick={() => navigate("/StudentsList")}
-              className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-lg"
+              className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#8d64a3] to-[#aa85e3] hover:text-white rounded-lg"
             >
               <FaUserGraduate className="text-xl" />
               <span className={`${isSidebarOpen ? "ml-4" : "hidden"}`}>
@@ -134,7 +134,7 @@ const Sidebar = () => {
           <li>
             <button
               onClick={() => navigate("/InstructorsList")}
-              className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-lg"
+              className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#8d64a3] to-[#aa85e3] hover:text-white rounded-lg"
             >
               <FaChalkboardTeacher className="text-xl" />
               <span className={`${isSidebarOpen ? "ml-4" : "hidden"}`}>
@@ -147,7 +147,7 @@ const Sidebar = () => {
           <li>
             <button
               onClick={() => navigate("/OrganizationsList")}
-              className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-lg"
+              className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#8d64a3] to-[#aa85e3] hover:text-white rounded-lg"
             >
               <FaRegBuilding className="text-xl" />
               <span className={`${isSidebarOpen ? "ml-4" : "hidden"}`}>
@@ -160,7 +160,7 @@ const Sidebar = () => {
           <li>
             <button
               onClick={() => navigate("/documents")}
-              className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-lg"
+              className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#8d64a3] to-[#aa85e3] hover:text-white rounded-lg"
             >
               <HiOutlineDocumentText className="text-xl" />
               <span className={`${isSidebarOpen ? "ml-4" : "hidden"}`}>
@@ -173,7 +173,7 @@ const Sidebar = () => {
           <li>
             <button
               onClick={() => navigate("/settings")}
-              className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-lg"
+              className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#8d64a3] to-[#aa85e3] hover:text-white rounded-lg"
             >
               <MdSettings className="text-xl" />
               <span className={`${isSidebarOpen ? "ml-4" : "hidden"}`}>
@@ -185,7 +185,7 @@ const Sidebar = () => {
           {/* LockUp Section */}
           <li>
             <div
-              className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-lg cursor-pointer"
+              className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#8d64a3] to-[#aa85e3] hover:text-white rounded-lg cursor-pointer"
               onClick={() => setLockUp(!isLockUp)}
             >
               <FaLock className="text-xl" />
@@ -203,7 +203,7 @@ const Sidebar = () => {
                 <li>
                   <button
                     onClick={() => navigate("/language")}
-                    className="block px-4 py-2 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-lg"
+                    className="block px-4 py-2 hover:bg-gradient-to-r from-[#8d64a3] to-[#aa85e3] hover:text-white rounded-lg"
                   >
                     Language
                   </button>
@@ -211,7 +211,7 @@ const Sidebar = () => {
                 <li>
                   <button
                     onClick={() => navigate("/country")}
-                    className="block px-4 py-2 hover:bg-gradient-to-r from-[#925fe2] to-[#aa85e3] hover:text-white rounded-lg"
+                    className="block px-4 py-2 hover:bg-gradient-to-r from-[#8d64a3] to-[#aa85e3] hover:text-white rounded-lg"
                   >
                     Country
                   </button>

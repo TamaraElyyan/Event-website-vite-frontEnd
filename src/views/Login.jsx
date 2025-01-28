@@ -152,16 +152,16 @@ const Login = () => {
             alt="vector1"
             className="absolute top-0 left-0 z-0"
           />
-          <h1 className="text-3xl md:text-5xl font-bold text-center">
+          <h1 className="text-3xl md:text-5xl font-bold text-center z-20">
             Welcome to Student Portal
           </h1>
-          <p className="text-lg text-center mt-4">
+          <p className="text-lg text-center mt-4 z-20">
             Access your account and explore your resources!
           </p>
           <img
             src={LOGIN}
             alt="Student Portal Illustration"
-            className="w-3/4 mt-6"
+            className="w-3/4 mt-6 z-20"
           />
           <img
             src={vector3}

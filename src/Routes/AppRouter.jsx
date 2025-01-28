@@ -121,7 +121,7 @@ const AppRouter = () => {
             </ProtectedRoute>
           }
         />
-          <Route
+        <Route
           path="/AddCourse"
           element={
             <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
@@ -132,7 +132,7 @@ const AppRouter = () => {
           }
         />
 
-<Route
+        <Route
           path="/EventsList"
           element={
             <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
@@ -142,7 +142,7 @@ const AppRouter = () => {
             </ProtectedRoute>
           }
         />
-        
+
         <Route
           path="/AddEvent"
           element={
