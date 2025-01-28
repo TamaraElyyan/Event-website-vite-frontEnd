@@ -29,11 +29,13 @@ const Partners = () => {
 
   return (
     <div className="max-w-full mx-auto p-8 pt-[100px] bg-gray-50">
-      <h1 className="text-3xl font-bold text-center mb-2">Our Partners</h1>
+      <h1 className="text-4xl text-orange-500 font-bold text-center mb-2">
+        Our Partners
+      </h1>
       <h2 className="text-xl text-gray-600 text-center mb-2">
         Meet Our Trusted Partners
       </h2>
-      <div className="w-16 h-1 bg-[#927ad4] mx-auto mb-6"></div>
+      <div className="w-16 h-1 bg-[#4d2c5e] mx-auto mb-6"></div>
 
       {partners.length === 0 ? (
         <p className="text-center text-gray-500">No partners found.</p>

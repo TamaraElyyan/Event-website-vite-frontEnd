@@ -6,7 +6,7 @@ const Contact = () => {
       <div className="bg-gray-50 py-[110px] px-6 md:px-16 lg:px-24 ">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-[#925fe2] text-xl md:text-2xl font-semibold mb-2">
+            <h2 className="text-[#4d2c5e] text-xl md:text-2xl font-semibold mb-2">
               CONTACT US
             </h2>
             <h3 className="text-black text-3xl md:text-4xl font-bold mb-4">
@@ -71,7 +71,7 @@ const Contact = () => {
 
                 <button
                   type="submit"
-                  className="bg-[#925fe2] text-white text-lg font-medium py-3 px-6 rounded-lg hover:bg-purple-400 transition duration-300"
+                  className="bg-[#4d2c5e] text-white text-lg font-medium py-3 px-6 rounded-lg hover:bg-purple-400 transition duration-300"
                 >
                   Send
                 </button>

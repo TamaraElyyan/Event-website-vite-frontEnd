@@ -1,9 +1,8 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
-import axiosInstance from "../API/axios/axiosInstance";
+import { login as loginEndpoint } from "../API/endpoint/Auth";
 import LOGIN from "../assets/PNG/Login.png";
 import vector1 from "../assets/PNG/Vector1.png";
-import vector2 from "../assets/PNG/Vector2.png";
 import vector3 from "../assets/PNG/Vector3.png";
 
 const Login = () => {
@@ -20,78 +19,48 @@ const Login = () => {
     setError("");
     setIsLoading(true);
 
-    console.log("nnnnnnnnnnnn")
-
     try {
-      // First API call: Login
-      console.log("nnnnnnnnnnnn"+username)
-      console.log("nnnnnnnnnnnn"+password)
-
-      const response = await axiosInstance.post("auth/login", {
-        username,
-        password,
-      },   { useAuth: false }
-    );
-      console.log(response.status)
-      console.log(response.data)
+      const response = await loginEndpoint(
+        { username, password },
+        { useAuth: false }
+      );
 
       if (response.status === 200 && response.data) {
         const token = response.data;
-       console.log(username)
+
         try {
-          // Second API call: Fetch user details
-          // const userResponse = await axiosInstance.get(
-          //   `http://localhost:8080/api/v1/user/${username}`,
-          //   {
-          //     headers: {
-          //       Authorization: `Bearer ${token}`,
-          //     },
-          //   },
-          // );
-          const userResponse = await axiosInstance.get(`user/${username}`); // No need to pass the token manually
-
-
+          const userResponse = await loginEndpoint.get(`user/${username}`);
           const userDetails = userResponse.data;
-          const role = userDetails.role; // Extract role
+          const role = userDetails.role;
 
-          // Store in localStorage for persistence
           localStorage.setItem("token", token);
           localStorage.setItem("username", username);
           localStorage.setItem("rememberMe", rememberMe);
           localStorage.setItem("role", role);
 
-          // Pass the role to the login function
           login(token, username, rememberMe, role);
-
-          // Redirect to the dashboard
           window.location.href = "/dashboard";
         } catch (userError) {
-          console.error(
-            "Error fetching user details:",
-            userError.response?.data || userError.message
-          );
+          console.error("Error fetching user details:", userError);
           setError("Failed to fetch user details. Please try again later.");
         }
       } else {
-        setError("Login failed. Please check your credentials.");
+        setError("Invalid credentials. Please try again.");
       }
     } catch (error) {
       setError(
-        error.response?.data?.message ||
-          "Something went wrong. Please try again."
+        error.response?.data?.message || "An error occurred. Try again."
       );
     } finally {
       setIsLoading(false);
     }
   };
 
-
-
-
   return (
     <div className="flex justify-center items-center h-screen bg-[#1C1D21] overflow-hidden">
       <div className="flex w-3/4 max-w-screen-xl mx-auto h-full p-6 md:p-4">
-        <div className="w-full md:w-1/2 bg-[#1C1D21] p-6 md:p-10 rounded-lg shadow-lg flex items-center justify-center relative z-10 h-full">
+        {/* Login Form */}
+        <div className="w-full md:w-1/2 bg-[#1C1D21] p-6 md:p-10 rounded-lg shadow-lg flex items-center justify-center relative z-10">
           <div className="w-full max-w-md">
             <h2 className="text-3xl font-semibold text-center text-white mb-6">
               Login
@@ -106,6 +75,7 @@ const Login = () => {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <input
+                id="username"
                 type="text"
                 placeholder="Username"
                 value={username}
@@ -114,6 +84,7 @@ const Login = () => {
                 required
               />
               <input
+                id="password"
                 type="password"
                 placeholder="Password"
                 value={password}
@@ -162,7 +133,7 @@ const Login = () => {
               </button>
             </div>
 
-            <p className="text-center text-white mt-6 ">
+            <p className="text-center text-white mt-6">
               {"Don't have an account?"}
               <a
                 href="/Register"
@@ -174,38 +145,28 @@ const Login = () => {
           </div>
         </div>
 
-        <div className="w-full md:w-1/2 p-6 md:p-10 bg-[#925FE2] text-white flex flex-col justify-center relative z-0 h-full">
+        {/* Welcome Section */}
+        <div className="hidden md:flex w-1/2 flex-col justify-center items-center bg-[#925FE2] text-white relative">
           <img
             src={vector1}
             alt="vector1"
-            className="max-w-full h-auto absolute top-0 left-0 z-0 hidden md:block"
+            className="absolute top-0 left-0 z-0"
           />
-          <img
-            src={vector2}
-            alt="vector2"
-            className="max-w-full h-auto absolute top-4 right-10 z-0 hidden md:block"
-          />
-          <h1 className="text-3xl md:text-5xl font-bold pt-16 z-10 text-center">
-            Welcome to
+          <h1 className="text-3xl md:text-5xl font-bold text-center">
+            Welcome to Student Portal
           </h1>
-          <h1 className="text-3xl md:text-5xl font-bold pb-2 relative z-10 text-center">
-            Student Portal
-          </h1>
-
-          <p className="text-white mt-2 text-lg mb-8 relative z-10 text-center">
+          <p className="text-lg text-center mt-4">
             Access your account and explore your resources!
           </p>
-          <div className="mt-1 relative z-10">
-            <img
-              src={LOGIN}
-              alt="Student Portal Illustration"
-              className="max-w-full h-auto pb-4 pr-3 pl-4 ml-16 "
-            />
-          </div>
+          <img
+            src={LOGIN}
+            alt="Student Portal Illustration"
+            className="w-3/4 mt-6"
+          />
           <img
             src={vector3}
             alt="vector3"
-            className="max-w-full h-auto absolute bottom-0 left-0 z-0 hidden md:block"
+            className="absolute bottom-0 left-0 z-0"
           />
         </div>
       </div>

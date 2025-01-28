@@ -38,7 +38,7 @@ const Header = () => {
     <header className="fixed left-0 right-0 z-50 text-gray-800 p-4 bg-white px-6">
       <div className="flex justify-between items-center pl-4">
         {/* Logo */}
-        <Logo className="text-[#aa85e3]" />
+        <Logo className="text-[#4D2C5E]" />
 
         {/* Mobile menu button */}
         <button
@@ -65,7 +65,7 @@ const Header = () => {
         <nav className={`lg:flex hidden space-x-4 text-[20px]`}>
           <a
             onClick={() => handleNavigate("/")}
-            className={`cursor-pointer hover:text-[#aa85e3] ${
+            className={`cursor-pointer hover:text-[#8d64a3] ${
               location.pathname === "/" ? "underline" : ""
             }`}
           >
@@ -73,7 +73,7 @@ const Header = () => {
           </a>
           <a
             onClick={() => handleNavigate("/about")}
-            className={`cursor-pointer hover:text-[#aa85e3] ${
+            className={`cursor-pointer hover:text-[#8d64a3] ${
               location.pathname === "/about" ? "underline" : ""
             }`}
           >
@@ -81,7 +81,7 @@ const Header = () => {
           </a>
           <a
             onClick={() => handleNavigate("/partners")}
-            className={`cursor-pointer hover:text-[#aa85e3] ${
+            className={`cursor-pointer hover:text-[#8d64a3] ${
               location.pathname === "/partners" ? "underline" : ""
             }`}
           >
@@ -92,7 +92,7 @@ const Header = () => {
             <a
               href="#"
               onClick={handleTrainingDropdownToggle}
-              className={`cursor-pointer hover:text-[#aa85e3] ${
+              className={`cursor-pointer hover:text-[#8d64a3] ${
                 location.pathname === "/training" ||
                 location.pathname === "/courses" ||
                 location.pathname === "/events"
@@ -106,7 +106,7 @@ const Header = () => {
               <div className="absolute left-0 mt-2 bg-white p-2 rounded-md shadow-md z-10">
                 <a
                   onClick={() => handleNavigate("/courses")}
-                  className={`block py-2 px-4 cursor-pointer hover:bg-[#aa85e3] ${
+                  className={`block py-2 px-4 cursor-pointer hover:bg-[#8d64a3] ${
                     location.pathname === "/courses" ? "underline" : ""
                   }`}
                 >
@@ -114,7 +114,7 @@ const Header = () => {
                 </a>
                 <a
                   onClick={() => handleNavigate("/events")}
-                  className={`block py-2 px-4 cursor-pointer hover:bg-[#aa85e3] ${
+                  className={`block py-2 px-4 cursor-pointer hover:bg-[#8d64a3] ${
                     location.pathname === "/events" ? "underline" : ""
                   }`}
                 >
@@ -126,7 +126,7 @@ const Header = () => {
 
           <a
             onClick={() => handleNavigate("/contact")}
-            className={`cursor-pointer hover:text-[#aa85e3] ${
+            className={`cursor-pointer hover:text-[#8d64a3] ${
               location.pathname === "/contact" ? "underline" : ""
             }`}
           >
@@ -145,7 +145,7 @@ const Header = () => {
         <div className="lg:hidden bg-white p-4 mt-4">
           <a
             onClick={() => handleNavigate("/")}
-            className={`block py-2 cursor-pointer hover:bg-[#aa85e3] ${
+            className={`block py-2 cursor-pointer hover:bg-[#8d64a3] ${
               location.pathname === "/" ? "underline" : ""
             }`}
           >
@@ -153,7 +153,7 @@ const Header = () => {
           </a>
           <a
             onClick={() => handleNavigate("/about")}
-            className={`block py-2 cursor-pointer hover:bg-[#aa85e3] ${
+            className={`block py-2 cursor-pointer hover:bg-[#8d64a3] ${
               location.pathname === "/about" ? "underline" : ""
             }`}
           >
@@ -161,7 +161,7 @@ const Header = () => {
           </a>
           <a
             onClick={() => handleNavigate("/partners")}
-            className={`block py-2 cursor-pointer hover:bg-[#aa85e3] ${
+            className={`block py-2 cursor-pointer hover:bg-[#8d64a3] ${
               location.pathname === "/partners" ? "underline" : ""
             }`}
           >
@@ -172,7 +172,7 @@ const Header = () => {
           <div>
             <a
               onClick={handleTrainingDropdownToggle}
-              className={`block py-2 cursor-pointer hover:bg-[#aa85e3] ${
+              className={`block py-2 cursor-pointer hover:bg-[#8d64a3] ${
                 location.pathname === "/training" ||
                 location.pathname === "/courses" ||
                 location.pathname === "/events"
@@ -186,7 +186,7 @@ const Header = () => {
               <div className="ml-4">
                 <a
                   onClick={() => handleNavigate("/courses")}
-                  className={`block py-2 cursor-pointer hover:bg-[#aa85e3] ${
+                  className={`block py-2 cursor-pointer hover:bg-[#8d64a3] ${
                     location.pathname === "/courses" ? "underline" : ""
                   }`}
                 >
@@ -194,7 +194,7 @@ const Header = () => {
                 </a>
                 <a
                   onClick={() => handleNavigate("/events")}
-                  className={`block py-2 cursor-pointer hover:bg-[#aa85e3] ${
+                  className={`block py-2 cursor-pointer hover:bg-[#8d64a3] ${
                     location.pathname === "/events" ? "underline" : ""
                   }`}
                 >
@@ -206,7 +206,7 @@ const Header = () => {
 
           <a
             onClick={() => handleNavigate("/contact")}
-            className={`block py-2 cursor-pointer hover:bg-[#aa85e3] ${
+            className={`block py-2 cursor-pointer hover:bg-[#8d64a3] ${
               location.pathname === "/contact" ? "underline" : ""
             }`}
           >

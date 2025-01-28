@@ -41,7 +41,7 @@ const Benefits = () => {
   return (
     <div className="bg-gray-50 px-6 md:px-16 lg:px-24 py-16">
       <div className="text-center max-w-4xl mx-auto">
-        <h2 className="text-[#925fe2] text-2xl md:text-3xl font-bold mb-4">
+        <h2 className="text-orange-500 text-4xl  md:text-3xl font-bold mb-4">
           Our Benefits
         </h2>
         <h3 className="text-black text-3xl md:text-4xl font-semibold mb-6">
@@ -59,7 +59,7 @@ const Benefits = () => {
             key={index}
             className="bg-white p-6 shadow-lg rounded-lg text-center"
           >
-            <div className="text-[#925fe2] text-4xl font-bold mb-2">
+            <div className="text-[#4d2c5e] text-4xl font-bold mb-2">
               {benefit.number}
             </div>
             <h4 className="text-black text-xl font-semibold mb-3">
@@ -68,7 +68,7 @@ const Benefits = () => {
             <p className="text-gray-600">{benefit.description}</p>
             <a
               href="#"
-              className="text-[#925fe2] font-medium mt-3 inline-block hover:underline"
+              className="text-[#4d2c5e] font-medium mt-3 inline-block hover:underline"
             >
               Read More
             </a>

@@ -9,11 +9,11 @@ const AboutUs = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-6xl">
           {/* Left Section: Text Content */}
           <div className="text-left">
-            <h1 className="text-[#925fe2] text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="text-orange-500 text-4xl md:text-5xl font-bold mb-4">
               About Us
             </h1>
             <h2 className="text-2xl md:text-3xl font-semibold text-black mb-6">
-              Welcome to <span className="text-[#aa85e3]">Yalla Shabab</span>,
+              Welcome to <span className="text-orange-500">Yalla Shabab</span>,
               Connecting Educators, Students, and Companies Globally.
             </h2>
             <p className="text-gray-700 text-lg md:text-xl leading-relaxed mb-6">

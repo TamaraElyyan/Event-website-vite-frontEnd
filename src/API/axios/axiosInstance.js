@@ -12,9 +12,11 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     // Check if the request should use the Bearer token
-    const token = localStorage.getItem("token");
-    if (token && config.useAuth !== false) {
-      config.headers.Authorization = `Bearer ${token}`;
+    if (!config.url.includes("login") && !config.url.includes("logout")) {
+      const token = localStorage.getItem("token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
     }
     return config;
   },

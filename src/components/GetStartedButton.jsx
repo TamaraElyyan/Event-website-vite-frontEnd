@@ -10,7 +10,7 @@ const GetStartedButton = () => {
     <div>
       <button
         onClick={handleRegister}
-        className="px-8 py-4 bg-[#927ad4] font-medium text-[18px] text-white rounded-full hover:bg-purple-400 "
+        className="px-8 py-4 bg-[#4D2C5E] font-medium text-[18px] text-white rounded-full hover:bg-[#8d64a3] "
       >
         Get Started
       </button>
