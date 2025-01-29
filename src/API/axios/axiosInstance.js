@@ -1,5 +1,7 @@
-import axios from "axios";
+import { ImageOutlined } from "@mui/icons-material";
+import { AuthContext } from "../Context/AuthContext";
 
+ImageOutlined
 const axiosInstance = axios.create({
   baseURL: "http://localhost:8080/api/v1/",
   timeout: 5000,
@@ -8,6 +10,7 @@ const axiosInstance = axios.create({
     Accept: "application/json",
   },
 });
+  const { login } = useContext(AuthContext);
 
 // axiosInstance.interceptors.request.use(
 //   (config) => {
@@ -20,16 +23,17 @@ const axiosInstance = axios.create({
 //   },
 //   (error) => Promise.reject(error)
 // );
-// axiosInstance.interceptors.request.use(
-//   (config) => {
-//     const token = localStorage.getItem("token");
-//     if (token) {
-//       config.headers.Authorization = `Bearer ${token}`;
-//     }
-//     return config;
-//   },
-//   (error) => Promise.reject(error)
-// );
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    // const token=
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 axiosInstance.interceptors.response.use(
   (response) => response,
