@@ -15,6 +15,7 @@ import Logo from "./Logo";
 const Sidebar = () => {
   const [isLockUp, setLockUp] = useState(false);
   const [isTrainingOpen, setIsTrainingOpen] = useState(false);
+  const [isStudentsOpen, setIsStudentsOpen] = useState(false); // State for toggling the Students options
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); // For toggling sidebar visibility
   const navigate = useNavigate();
 
@@ -117,17 +118,42 @@ const Sidebar = () => {
             )}
           </li>
 
-          {/* Students */}
+          {/* Students Section */}
           <li>
-            <button
-              onClick={() => navigate("/StudentsList")}
-              className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#8d64a3] to-[#aa85e3] hover:text-white rounded-lg"
+            <div
+              className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#8d64a3] to-[#aa85e3] hover:text-white rounded-lg cursor-pointer"
+              onClick={() => setIsStudentsOpen(!isStudentsOpen)}
             >
               <FaUserGraduate className="text-xl" />
               <span className={`${isSidebarOpen ? "ml-4" : "hidden"}`}>
                 Students
               </span>
-            </button>
+              <FiChevronDown
+                className={`ml-auto transition-transform ${
+                  isStudentsOpen ? "rotate-180" : ""
+                } ${isSidebarOpen ? "block" : "hidden"}`}
+              />
+            </div>
+            {isStudentsOpen && isSidebarOpen && (
+              <ul className="pl-6 space-y-2">
+                <li>
+                  <button
+                    onClick={() => navigate("/RegularStudents")}
+                    className="block px-4 py-2 hover:bg-gradient-to-r from-[#8d64a3] to-[#aa85e3] hover:text-white rounded-lg"
+                  >
+                    Regular
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate("/PendingStudents")}
+                    className="block px-4 py-2 hover:bg-gradient-to-r from-[#8d64a3] to-[#aa85e3] hover:text-white rounded-lg"
+                  >
+                    Pending
+                  </button>
+                </li>
+              </ul>
+            )}
           </li>
 
           {/* Teachers */}
@@ -143,7 +169,7 @@ const Sidebar = () => {
             </button>
           </li>
 
-          {/* Organization */}
+          {/* Organizations */}
           <li>
             <button
               onClick={() => navigate("/OrganizationsList")}

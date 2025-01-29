@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { fetchStudents, deleteStudent } from "../API/endpoint/Student";
 import Table from "../components/Table";
+import AddButton from "../components/AddButton";
 
-const StudentsList = () => {
+const RegularStudents = () => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -74,7 +75,11 @@ const StudentsList = () => {
 
       {/* Main Content (right side) */}
       <div className="flex-1 flex flex-col ml-0 lg:ml-1 overflow-y-auto pr-4 lg:pl-8 lg:pr-11 relative mt-16">
-        <h2 className="text-2xl font-semibold mb-4 mt-6">Students List</h2>
+        <div className="flex justify-end mt-8">
+          <AddButton label="Student" path="/addStudent" />
+        </div>
+
+        <h2 className="text-2xl font-semibold mb-4 mt-6">Regular Students</h2>
         <Table
           columns={columns}
           data={students}
@@ -86,4 +91,4 @@ const StudentsList = () => {
   );
 };
 
-export default StudentsList;
+export default RegularStudents;

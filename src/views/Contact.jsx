@@ -29,7 +29,7 @@ const Contact = () => {
                     type="text"
                     id="name"
                     name="name"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#927ad4]"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8d64a3]"
                     placeholder="First_Name Last_Name"
                     required
                   />
@@ -46,7 +46,7 @@ const Contact = () => {
                     type="email"
                     id="email"
                     name="email"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#927ad4]"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8d64a3]"
                     placeholder="Enter your email"
                     required
                   />
@@ -63,7 +63,7 @@ const Contact = () => {
                     id="message"
                     name="message"
                     rows="5"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#927ad4]"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8d64a3]"
                     placeholder="Your Message"
                     required
                   ></textarea>
@@ -71,7 +71,7 @@ const Contact = () => {
 
                 <button
                   type="submit"
-                  className="bg-[#4d2c5e] text-white text-lg font-medium py-3 px-6 rounded-lg hover:bg-purple-400 transition duration-300"
+                  className="bg-[#4d2c5e] text-white text-lg font-medium py-3 px-6 rounded-lg hover:bg-[#8d64a3] transition duration-300"
                 >
                   Send
                 </button>

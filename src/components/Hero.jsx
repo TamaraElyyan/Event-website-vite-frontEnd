@@ -7,7 +7,7 @@ import Object4 from "../assets/PNG/Group4.png";
 
 const Hero = () => {
   return (
-    <section className="relative pt-60 min-h-screen flex flex-col items-center justify-between px-8 overflow-hidden bg-[#FDF8F3]">
+    <section className="relative pt-60  flex flex-col items-center justify-between px-8 overflow-hidden bg-[#FDF8F3]">
       {/* Background Objects */}
       <img
         src={Object1}

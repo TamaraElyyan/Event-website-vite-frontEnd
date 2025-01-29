@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext, useMemo } from "react";
-import axios from "axios";
+import axiosInstance from "../API/axios/axiosInstance";
 import { AuthContext } from "../Context/AuthContext";
 import ImageProfile from "./ImageProfile";
 
-const Profile = () => {
+const ProfileDropdown = () => {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [user, setUser] = useState({
@@ -26,14 +26,9 @@ const Profile = () => {
       }
 
       try {
-        const response = await axios.get(`${baseUrl}/user/${auth.username}`, {
-          headers: {
-            Authorization: `Bearer ${auth.token}`,
-          },
-        });
-
+        const response = await axiosInstance.get(`/user/${auth.username}`);
         const profileImageUrl = response.data.profilePictureUrl
-          ? `http://localhost:8080/api/v1/user/profilePicture/${response.data.profilePictureUrl}`
+          ? `${baseUrl}/user/profilePicture/${response.data.profilePictureUrl}`
           : "";
 
         setUser({
@@ -59,18 +54,17 @@ const Profile = () => {
     formData.append("profileImage", file);
 
     try {
-      const response = await axios.post(
-        `${baseUrl}/user/uploadProfileImage`,
+      const response = await axiosInstance.post(
+        `/user/uploadProfileImage`,
         formData,
         {
           headers: {
-            Authorization: `Bearer ${auth.token}`,
             "Content-Type": "multipart/form-data",
           },
         }
       );
 
-      const newProfileImageUrl = `http://localhost:8080/api/v1/user/profilePicture/${response.data.newImageFilename}`;
+      const newProfileImageUrl = `${baseUrl}/user/profilePicture/${response.data.newImageFilename}`;
       setUser((prevState) => ({
         ...prevState,
         profileImage: newProfileImageUrl,
@@ -84,11 +78,7 @@ const Profile = () => {
 
   const handleRemoveImage = async () => {
     try {
-      await axios.delete(`${baseUrl}/user/deleteProfileImage`, {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
-      });
+      await axiosInstance.delete(`/user/deleteProfileImage`);
 
       setUser((prevState) => ({
         ...prevState,
@@ -107,7 +97,6 @@ const Profile = () => {
   return (
     <div className="relative">
       <div className="relative flex items-center cursor-pointer">
-        {/* Profile Image */}
         <div
           className="relative"
           onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
@@ -117,11 +106,10 @@ const Profile = () => {
             imageFilename={user.profileImage}
             altText={user.username || "User"}
           />
-          {/* Edit Icon Overlay */}
           <div
             className="absolute bottom-0 right-0 bg-gray-700 text-white p-2 rounded-full cursor-pointer hover:bg-gray-600"
             onClick={(e) => {
-              e.stopPropagation(); // Prevent triggering the parent click
+              e.stopPropagation();
               setIsProfileMenuOpen(!isProfileMenuOpen);
             }}
           >
@@ -135,14 +123,14 @@ const Profile = () => {
             </svg>
           </div>
         </div>
-
-        {/* Username */}
-        <span className="p-2 text-black font-medium hidden sm:block">
+        <span
+          className="p-2 text-black font-medium hidden sm:block"
+          onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+        >
           {user.username || "User"}
         </span>
       </div>
 
-      {/* Profile Menu */}
       {isProfileMenuOpen && (
         <ul className="absolute right-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg">
           <li
@@ -160,7 +148,6 @@ const Profile = () => {
         </ul>
       )}
 
-      {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white rounded-lg shadow-lg p-6 w-96">
@@ -204,4 +191,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfileDropdown;

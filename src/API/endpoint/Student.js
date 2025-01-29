@@ -7,7 +7,20 @@ export const fetchStudents = async () => {
   return response.data;
 };
 
-// Delete a student
-export const deleteStudent = async (id) => {
-  await axiosInstance.delete(`student/delete/${id}`);
+// Accept a student
+export const acceptStudent = async (id) => {
+  try {
+    await axiosInstance.put(`student/accept/${id}`);
+  } catch (err) {
+    throw new Error("Failed to accept student.");
+  }
+};
+
+// Decline a student
+export const declineStudent = async (id) => {
+  try {
+    await axiosInstance.put(`student/decline/${id}`);
+  } catch (err) {
+    throw new Error("Failed to decline student.");
+  }
 };

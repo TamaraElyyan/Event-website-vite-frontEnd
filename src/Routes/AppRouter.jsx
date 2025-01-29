@@ -14,7 +14,8 @@ import Dashboard from "../views/Dashboard";
 import StudentProfile from "../views/StudentProfile";
 import InstructorProfile from "../views/InstructorProfile";
 import NotFound from "../views/NotFound";
-import StudentsList from "../views/StudentsList";
+import RegularStudents from "../views/RegularStudents";
+import PendingStudents from "../views/PendingStudents";
 import EventsList from "../views/EventsList";
 import StudentUpdateProfile from "../views/StudentUpdateProfile";
 import InstructorUpdateProfile from "../views/InstructorUpdateProfile";
@@ -81,11 +82,21 @@ const AppRouter = () => {
           }
         />
         <Route
-          path="/StudentsList"
+          path="/RegularStudents"
           element={
             <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
               <WrapperWithSidebarAndNavbar>
-                <StudentsList />
+                <RegularStudents />
+              </WrapperWithSidebarAndNavbar>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/PendingStudents"
+          element={
+            <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
+              <WrapperWithSidebarAndNavbar>
+                <PendingStudents />
               </WrapperWithSidebarAndNavbar>
             </ProtectedRoute>
           }
