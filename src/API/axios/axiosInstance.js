@@ -1,7 +1,5 @@
-import { ImageOutlined } from "@mui/icons-material";
-import { AuthContext } from "../Context/AuthContext";
+import axios from "axios";
 
-ImageOutlined
 const axiosInstance = axios.create({
   baseURL: "http://localhost:8080/api/v1/",
   timeout: 5000,
@@ -10,7 +8,6 @@ const axiosInstance = axios.create({
     Accept: "application/json",
   },
 });
-  const { login } = useContext(AuthContext);
 
 // axiosInstance.interceptors.request.use(
 //   (config) => {
@@ -26,7 +23,6 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
-    // const token=
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -35,14 +31,14 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      window.location.href = "/login"; // Redirect to login if token expired or unauthorized
-    }
-    return Promise.reject(error);
-  }
-);
+// axiosInstance.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     if (error.response?.status === 401) {
+//       window.location.href = "/login"; // Redirect to login if token expired or unauthorized
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 export default axiosInstance;
