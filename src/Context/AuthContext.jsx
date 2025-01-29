@@ -29,6 +29,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    localStorage.removeItem("token"); // Remove stored token
+    localStorage.removeItem("user");  // Remove user info if stored
     setAuth({ token: null, username: null, rememberMe: false, role: null });
   };
 

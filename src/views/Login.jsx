@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { login as loginEndpoint } from "../API/endpoint/Auth";
+import {getUserDetails}  from "../API/endpoint/Auth";
 import LOGIN from "../assets/PNG/Login.png";
 import vector1 from "../assets/PNG/Vector1.png";
 import vector3 from "../assets/PNG/Vector3.png";
@@ -13,56 +14,44 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
 
-    try {
-      const response = await loginEndpoint(
-        { username, password },
-        // { useAuth: false }
-      );
-    console.log(username)
-      if (response.status === 200 && response.data) {
-        const token = response.data;
-
-        try {
-          const userResponse = await axiosInstance.get(
-            `http://localhost:8080/api/v1/user/${username}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            })
-          
-            console.log(userResponse)
-          const userDetails = userResponse.data;
-          const role = userDetails.role;
-
+    loginEndpoint({ username, password }, { useAuth: false })
+      .then((response) => {
+        if (response.status === 200 && response.data) {
+          const token = response.data;
           localStorage.setItem("token", token);
-          localStorage.setItem("username", username);
-          localStorage.setItem("rememberMe", rememberMe);
-          localStorage.setItem("role", role);
-
-          login(token, username, rememberMe, role);
-          window.location.href = "/dashboard";
-        } catch (userError) {
-          console.error("Error fetching user details:", userError);
-          setError("Failed to fetch user details. Please try again later.");
+         return getUserDetails(username);
+          //return axiosInstance.get(`http://localhost:8080/api/v1/user/${username}`
+          // , {
+          //   headers: { Authorization: `Bearer ${token}` },
+          // }
+        // );
+        } else {
+          throw new Error("Invalid credentials. Please try again.");
         }
-      } else {
-        setError("Invalid credentials. Please try again.");
-      }
-    } catch (error) {
-      setError(
-        error.response?.data?.message || "An error occurred. Try again."
-      );
-    } finally {
-      setIsLoading(false);
-    }
+      })
+      .then((userResponse) => {
+        const userDetails = userResponse.data;
+        const role = userDetails.role;
+
+        localStorage.setItem("username", username);
+        localStorage.setItem("rememberMe", rememberMe);
+        localStorage.setItem("role", role);
+
+        login(localStorage.getItem("token"), username, rememberMe, role);
+        window.location.href = "/dashboard";
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setError(error.response?.data?.message || error.message || "An error occurred. Try again.");
+      })
+      .finally(() => setIsLoading(false));
   };
+
 
   return (
     <div className="flex justify-center items-center h-screen bg-[#1C1D21] overflow-hidden">
