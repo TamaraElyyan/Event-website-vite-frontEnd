@@ -4,7 +4,7 @@ import { login as loginEndpoint } from "../API/endpoint/Auth";
 import LOGIN from "../assets/PNG/Login.png";
 import vector1 from "../assets/PNG/Vector1.png";
 import vector3 from "../assets/PNG/Vector3.png";
-
+import axiosInstance from "../API/axios/axiosInstance";
 const Login = () => {
   const { login } = useContext(AuthContext);
 
@@ -22,14 +22,22 @@ const Login = () => {
     try {
       const response = await loginEndpoint(
         { username, password },
-        { useAuth: false }
+        // { useAuth: false }
       );
-
+    console.log(username)
       if (response.status === 200 && response.data) {
         const token = response.data;
 
         try {
-          const userResponse = await loginEndpoint.get(`user/${username}`);
+          const userResponse = await axiosInstance.get(
+            `http://localhost:8080/api/v1/user/${username}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+          
+            console.log(userResponse)
           const userDetails = userResponse.data;
           const role = userDetails.role;
 
