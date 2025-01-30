@@ -24,3 +24,11 @@ export const declineStudent = async (id) => {
     throw new Error("Failed to decline student.");
   }
 };
+
+export const deleteStudent = async (id) => {
+  try {
+    await axiosInstance.delete(`student/delete/${id}`);
+  } catch (err) {
+    throw new Error("Failed to delete student.");
+  }
+};
