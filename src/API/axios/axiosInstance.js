@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    // Check if the request should use the Bearer token
+    // Check if the request should use the Bearer tokenv
     const token = localStorage.getItem("token");
     if (token && config.useAuth !== false) {
       config.headers.Authorization = `Bearer ${token}`;

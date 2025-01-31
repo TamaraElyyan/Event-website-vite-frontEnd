@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { login as loginEndpoint } from "../API/endpoint/Auth";
-import {getUserDetails}  from "../API/endpoint/Auth";
+import { getUserDetails } from "../API/endpoint/Auth";
 import LOGIN from "../assets/PNG/Login.png";
 import vector1 from "../assets/PNG/Vector1.png";
 import vector3 from "../assets/PNG/Vector3.png";
@@ -24,12 +24,12 @@ const Login = () => {
         if (response.status === 200 && response.data) {
           const token = response.data;
           localStorage.setItem("token", token);
-         return getUserDetails(username);
-          //return axiosInstance.get(`http://localhost:8080/api/v1/user/${username}`
+          return getUserDetails(username);
+          //return axiosInstance.get(http://localhost:8080/api/v1/user/${username}
           // , {
-          //   headers: { Authorization: `Bearer ${token}` },
+          //   headers: { Authorization: Bearer ${token} },
           // }
-        // );
+          // );
         } else {
           throw new Error("Invalid credentials. Please try again.");
         }
@@ -47,11 +47,14 @@ const Login = () => {
       })
       .catch((error) => {
         console.error("Error:", error);
-        setError(error.response?.data?.message || error.message || "An error occurred. Try again.");
+        setError(
+          error.response?.data?.message ||
+            error.message ||
+            "An error occurred. Try again."
+        );
       })
       .finally(() => setIsLoading(false));
   };
-
 
   return (
     <div className="flex justify-center items-center h-screen bg-[#1C1D21] overflow-hidden">

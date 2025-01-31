@@ -1,5 +1,3 @@
-import Footer from "../components/Footer";
-import Header from "../components/Header";
 import Hero from "../components/Hero";
 import SuccessStories from "../components/SuccessStories";
 import bg from "../assets/PNG/BackGroundHome.png";
@@ -16,9 +14,6 @@ const Home = () => {
           minHeight: "100vh",
         }}
       >
-        {/* Header */}
-        <Header />
-
         {/* Hero Section */}
         <Hero />
       </div>
@@ -28,9 +23,6 @@ const Home = () => {
 
       {/* SuccessStories Section */}
       <SuccessStories />
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 };

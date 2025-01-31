@@ -66,12 +66,6 @@ const Benefits = () => {
               {benefit.title}
             </h4>
             <p className="text-gray-600">{benefit.description}</p>
-            <a
-              href="#"
-              className="text-[#4d2c5e] font-medium mt-3 inline-block hover:underline"
-            >
-              Read More
-            </a>
           </div>
         ))}
       </div>

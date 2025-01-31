@@ -25,6 +25,9 @@ import CoursesList from "../views/CoursesList";
 import AddCourse from "../views/AddCourse";
 import AddEvent from "../views/AddEvent";
 import CoursesDetails from "../views/CoursesDetails";
+import Footer from "../components/Footer";
+import Courses from "../views/Courses";
+import Events from "../views/Events";
 const AppRouter = () => {
   return (
     <Router>
@@ -36,6 +39,7 @@ const AppRouter = () => {
             <>
               <Header />
               <Home />
+              <Footer />
             </>
           }
         />
@@ -45,6 +49,7 @@ const AppRouter = () => {
             <>
               <Header />
               <About />
+              <Footer />
             </>
           }
         />
@@ -54,6 +59,7 @@ const AppRouter = () => {
             <>
               <Header />
               <Partners />
+              <Footer />
             </>
           }
         />
@@ -63,6 +69,27 @@ const AppRouter = () => {
             <>
               <Header />
               <Contact />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/courses"
+          element={
+            <>
+              <Header />
+              <Courses />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/events"
+          element={
+            <>
+              <Header />
+              <Events />
+              <Footer />
             </>
           }
         />
@@ -70,7 +97,6 @@ const AppRouter = () => {
         {/* Routes for login and register */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
         {/* Protected Routes with Sidebar and Navbar */}
         <Route
           path="/dashboard"
@@ -102,7 +128,6 @@ const AppRouter = () => {
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/OrganizationsList"
           element={
@@ -143,7 +168,7 @@ const AppRouter = () => {
             </ProtectedRoute>
           }
         />
-           <Route
+        <Route
           path="/Course/:id"
           element={
             <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
@@ -153,7 +178,6 @@ const AppRouter = () => {
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/EventsList"
           element={
@@ -164,7 +188,6 @@ const AppRouter = () => {
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/AddEvent"
           element={
@@ -216,7 +239,6 @@ const AppRouter = () => {
             </ProtectedRoute>
           }
         />
-
         {/* Default Route for Not Found */}
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -2,12 +2,16 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import GetStartedButton from "./GetStartedButton";
 import Logo from "./Logo";
+import Profile from "./Profile"; // Import the Profile component
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTrainingDropdownOpen, setIsTrainingDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Add state for user authentication
+  const isLoggedIn = false; // Replace with actual authentication logic
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -134,9 +138,9 @@ const Header = () => {
           </a>
         </nav>
 
-        {/* Desktop Get Started button */}
+        {/* Desktop Profile or Get Started button */}
         <div className="space-x-4 lg:ml-10 hidden lg:block">
-          <GetStartedButton />
+          {isLoggedIn ? <Profile /> : <GetStartedButton />}
         </div>
       </div>
 
@@ -212,6 +216,17 @@ const Header = () => {
           >
             Contact
           </a>
+
+          {/* Mobile Profile or Get Started button */}
+          {isLoggedIn ? (
+            <div className="mt-4">
+              <Profile />
+            </div>
+          ) : (
+            <div className="mt-4">
+              <GetStartedButton />
+            </div>
+          )}
         </div>
       )}
     </header>

@@ -1,47 +1,48 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-// Use the uploaded image as the default profile image
-const userDefault = "/mnt/data/image.png";
-
-const ImageProfile = ({ token, imageFilename, altText = "User" }) => {
-  const [profileImage, setProfileImage] = useState(userDefault);
+const ImageProfile = ({
+  token,
+  imageFilename,
+  altText = "Image",
+  defaultImage = "/mnt/data/image.png",
+  size = 40,
+}) => {
+  const [imageSrc, setImageSrc] = useState(defaultImage);
 
   useEffect(() => {
-    const imageName = imageFilename?.split("/").pop();
-
     const fetchImage = async () => {
-      if (!imageName) return;
+      if (!imageFilename) return;
 
+      const imageName = imageFilename?.split("/").pop();
       const imageUrl = `http://localhost:8080/api/v1/user/files/${imageName}`;
 
       try {
         const response = await axios.get(imageUrl, {
           headers: {
-            Authorization: `Bearer ${token}`, // Pass the Bearer token
+            Authorization: `Bearer ${token}`,
           },
-          responseType: "blob", // Fetch the image as a Blob
+          responseType: "blob",
         });
 
-        // Create an object URL for the image
         const imageObjectURL = URL.createObjectURL(response.data);
-
-        // Set the profile image to the fetched image URL
-        setProfileImage(imageObjectURL);
+        setImageSrc(imageObjectURL);
       } catch (error) {
         console.error("Error fetching image:", error);
-        setProfileImage(userDefault); // Revert to default image on failure
+        setImageSrc(defaultImage);
       }
     };
 
-    // Fetch image if filename is provided
-    if (imageFilename) {
-      fetchImage();
-    }
+    fetchImage();
   }, [imageFilename]);
 
   return (
-    <img src={profileImage} alt={altText} className="w-10 h-10 rounded-full" />
+    <img
+      src={imageSrc}
+      alt={altText}
+      className="rounded-full object-cover"
+      style={{ width: size, height: size }}
+    />
   );
 };
 

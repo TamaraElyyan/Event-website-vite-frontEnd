@@ -1,7 +1,8 @@
 import { useEffect, useState, useContext } from "react";
 import OrganizationAPI from "../API/endpoint/Organization"; // Import organization API module
-import PartnerImage from "../components/PartnerImage"; // Fixed typo
+import PartnerImage from "../components/ImageProfile"; // Fixed typo
 import { AuthContext } from "../Context/AuthContext"; // Ensure correct path
+import PartnerDefault from "../assets/PNG/DefaultPartners.png";
 
 const Partners = () => {
   const { auth } = useContext(AuthContext); // Access auth context
@@ -54,20 +55,28 @@ const Partners = () => {
   );
 };
 
-const PartnerCard = ({ partner, auth }) => (
-  <div className="bg-gray-50 shadow-md rounded-lg p-4 flex flex-col items-center">
-    <PartnerImage
-      token={auth?.token} // Ensure auth is handled safely
-      imageFilename={partner.descriptionPicture}
-      altText={partner.organizationName || "organizationName"}
-    />
-    <h3 className="text-lg font-semibold text-gray-800">
-      {partner.organizationName}
-    </h3>
-    <p className="text-sm text-gray-600 mt-2 text-center">
-      {partner.description || "No description available."}
-    </p>
-  </div>
-);
+const PartnerCard = ({ partner, auth }) => {
+  // Default to PartnerDefault image if partner.descriptionPicture is not provided
+  const imageSource = partner.descriptionPicture
+    ? partner.descriptionPicture
+    : PartnerDefault;
+
+  return (
+    <div className="bg-gray-50 shadow-md rounded-lg p-4 flex flex-col items-center space-y-4">
+      <PartnerImage
+        token={auth?.token}
+        imageFilename={imageSource}
+        altText={partner.organizationName || "organizationName"}
+        className="w-full h-40 object-cover mb-4 rounded"
+      />
+      <h3 className="text-lg font-semibold text-gray-800 text-center">
+        {partner.organizationName}
+      </h3>
+      <p className="text-sm text-gray-600 text-center">
+        {partner.description || "No description available."}
+      </p>
+    </div>
+  );
+};
 
 export default Partners;

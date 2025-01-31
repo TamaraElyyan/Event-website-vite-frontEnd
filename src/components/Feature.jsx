@@ -17,9 +17,9 @@ const Feature = () => {
             Yalla Shabab connects experts and learners through events, fostering
             skill development and collaboration.
           </p>
-          <button className="bg-[#4d2c5e] text-white text-lg font-medium py-3 px-6 rounded-lg hover:bg-[#8d64a3] transition duration-300 flex items-center gap-2">
+          {/* <button className="bg-[#4d2c5e] text-white text-lg font-medium py-3 px-6 rounded-lg hover:bg-[#8d64a3] transition duration-300 flex items-center gap-2">
             Learn More <span>→</span>
-          </button>
+          </button> */}
         </div>
 
         {/* Right Section: Image */}

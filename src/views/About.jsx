@@ -1,7 +1,6 @@
 import AboutUs from "../components/AboutUs";
 import Feature from "../components/Feature";
 import Benefits from "../components/Benefits";
-import Footer from "../components/Footer";
 
 const About = () => {
   return (
@@ -11,7 +10,6 @@ const About = () => {
         <Feature />
         <Benefits />
       </div>
-      <Footer />
     </>
   );
 };
