@@ -4,7 +4,7 @@ const GetStartedButton = () => {
   const navigate = useNavigate();
 
   const handleRegister = () => {
-    navigate("/Register");
+    navigate("/login");
   };
   return (
     <div>

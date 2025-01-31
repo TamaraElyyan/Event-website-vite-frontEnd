@@ -24,6 +24,7 @@ import OrganizationsList from "../views/OrganizationsList";
 import CoursesList from "../views/CoursesList";
 import AddCourse from "../views/AddCourse";
 import AddEvent from "../views/AddEvent";
+import CoursesDetails from "../views/CoursesDetails";
 const AppRouter = () => {
   return (
     <Router>
@@ -138,6 +139,16 @@ const AppRouter = () => {
             <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
               <WrapperWithSidebarAndNavbar>
                 <AddCourse />
+              </WrapperWithSidebarAndNavbar>
+            </ProtectedRoute>
+          }
+        />
+           <Route
+          path="/Course/:id"
+          element={
+            <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
+              <WrapperWithSidebarAndNavbar>
+                <CoursesDetails />
               </WrapperWithSidebarAndNavbar>
             </ProtectedRoute>
           }

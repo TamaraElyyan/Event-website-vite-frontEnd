@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import OrganizationAPI from "../API/endpoint/Organization"; // Import organization API module
+import PartnerImage from "../components/PartnerImage"; // Fixed typo
+import { AuthContext } from "../Context/AuthContext"; // Ensure correct path
 
 const Partners = () => {
+  const { auth } = useContext(AuthContext); // Access auth context
+
   const [partners, setPartners] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -28,7 +32,7 @@ const Partners = () => {
     return <div className="bg-red-100 text-red-700 p-4 rounded">{error}</div>;
 
   return (
-    <div className="max-w-full mx-auto p-8 pt-[100px] ">
+    <div className="max-w-full mx-auto p-8 pt-[100px]">
       <h1 className="text-4xl text-orange-500 font-bold text-center mb-2">
         Our Partners
       </h1>
@@ -42,7 +46,7 @@ const Partners = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {partners.map((partner) => (
-            <PartnerCard key={partner.id} partner={partner} />
+            <PartnerCard key={partner.id} partner={partner} auth={auth} />
           ))}
         </div>
       )}
@@ -50,12 +54,12 @@ const Partners = () => {
   );
 };
 
-const PartnerCard = ({ partner }) => (
+const PartnerCard = ({ partner, auth }) => (
   <div className="bg-gray-50 shadow-md rounded-lg p-4 flex flex-col items-center">
-    <img
-      src={partner.logoUrl || "/default-logo.png"}
-      alt={partner.organizationName}
-      className="w-20 h-20 mb-4 object-contain"
+    <PartnerImage
+      token={auth?.token} // Ensure auth is handled safely
+      imageFilename={partner.descriptionPicture}
+      altText={partner.organizationName || "organizationName"}
     />
     <h3 className="text-lg font-semibold text-gray-800">
       {partner.organizationName}
