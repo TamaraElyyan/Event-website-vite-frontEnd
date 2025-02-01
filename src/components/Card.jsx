@@ -1,18 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axiosInstance from "../API/axios/axiosInstance"; // Importing axiosInstance
 import { useNavigate } from "react-router-dom";
-import defaultImage from "../assets/PNG/courseIcon1.jpg";
+import ImageProfile from "../components/ImageProfile"; // Assuming this component is in the components folder
+import CourseDefault from "../assets/PNG/courseIcon1.jpg";
 
 const Card = ({ item, type, auth, onRegister }) => {
   const [isRegistered, setIsRegistered] = useState(
     item.registrationStudents?.some(
-      (student) => student.student.email === auth?.user?.email
+      (student) => student.student.email === auth?.user?.email 
     )
   );
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState(""); // To store the type of message (success or error)
+  const [imageSource, setImageSource] = useState(""); // To store the randomly selected image
   const navigate = useNavigate(); // Initialize useNavigate hook
+
+  // Fetch images and choose a random one
+  useEffect(() => {
+    console.log(item.id)
+    const fetchImages = async () => {
+      try {
+        const response = await axiosInstance.get(
+          `http://localhost:8080/api/v1/training/${item.id}/pictures`
+        );
+        const imageList = response.data;
+        console.log(imageList)
+
+        if (imageList.length > 0) {
+          const randomImage = imageList[Math.floor(Math.random() * imageList.length)];
+          setImageSource(randomImage); // Set random image source
+        }else{
+                    setImageSource(CourseDefault); // Set random image source
+
+        }
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
+    };
+
+    fetchImages();
+  }, []); // Empty dependency array ensures the API call happens once when the component mounts
 
   const handleRegister = async () => {
     if (!auth?.token) {
@@ -85,15 +113,15 @@ const Card = ({ item, type, auth, onRegister }) => {
     }
   };
 
-  const imageUrl = item.imageUrl || defaultImage;
-
   return (
     <div className="bg-white shadow-md rounded-lg p-4 flex flex-col items-center">
-      <img
-        src={imageUrl}
-        alt={item.trainingName}
-        className="w-full h-40 object-cover rounded-lg"
-      />
+      {imageSource && (
+        <ImageProfile
+          token={auth?.token}
+          imageFilename={imageSource || CourseDefault}
+          className="w-full h-40 object-cover mb-4 rounded"
+        />
+      )}
       <h3 className="text-lg font-semibold text-gray-800 mt-2">
         {item.trainingName}
       </h3>
