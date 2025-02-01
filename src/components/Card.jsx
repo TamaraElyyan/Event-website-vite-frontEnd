@@ -25,14 +25,14 @@ const Card = ({ item, type, auth, onRegister }) => {
           `http://localhost:8080/api/v1/training/${item.id}/pictures`
         );
         const imageList = response.data;
-        console.log(imageList)
 
         if (imageList.length > 0) {
+          console.log(imageList)
           const randomImage = imageList[Math.floor(Math.random() * imageList.length)];
           setImageSource(randomImage); // Set random image source
-        }else{
-                    setImageSource(CourseDefault); // Set random image source
-
+        }else
+        {
+          setImageSource(CourseDefault); 
         }
       } catch (error) {
         console.error("Error fetching images:", error);

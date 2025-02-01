@@ -28,7 +28,7 @@ const ImageProfile = ({
         const imageObjectURL = URL.createObjectURL(response.data);
         setImageSrc(imageObjectURL);
       } catch (error) {
-        console.error("Error fetching image:", error);
+        // console.error("Error fetching image:", error);
         setImageSrc(defaultImage);
         console.log(imageSrc)
       }

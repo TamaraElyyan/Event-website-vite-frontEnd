@@ -33,8 +33,8 @@ const Partners = () => {
     return <div className="bg-red-100 text-red-700 p-4 rounded">{error}</div>;
 
   return (
-    <div className="max-w-full mx-auto p-8 pt-[100px]">
-      <h1 className="text-4xl text-orange-500 font-bold text-center mb-2">
+<div className="max-w-full mx-auto p-8 pt-[100px] h-[80vh]">
+<h1 className="text-4xl text-orange-500 font-bold text-center mb-2">
         Our Partners
       </h1>
       <h2 className="text-xl text-gray-600 text-center mb-2">
