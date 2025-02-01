@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axiosInstance from "../API/axios/axiosInstance"; // Importing the axiosInstance
-import CourseImage from "./ImageProfile";
 import { useNavigate } from "react-router-dom";
 
 const Card = ({ item, type, auth, onRegister }) => {
@@ -63,19 +62,16 @@ const Card = ({ item, type, auth, onRegister }) => {
     if (type === "event") {
       return item.trainingDescription || "No description available.";
     }
-    if (type === "partner") {
-      return item.partnerDescription || "No description available.";
-    }
-    return "";
   };
+
+  const imageUrl = item.imageUrl || "../assets/PNG/courseIcon1.jpg";
 
   return (
     <div className="bg-white shadow-md rounded-lg p-4 flex flex-col items-center">
-      <CourseImage
-        token={auth?.token}
-        imageFilename={item.image || "../assets/PNG/DefaultPartners.png"}
-        altText={item.name}
-        size={80}
+      <img
+        src={imageUrl}
+        alt={item.trainingName}
+        className="w-full h-40 object-cover rounded-lg"
       />
       <h3 className="text-lg font-semibold text-gray-800 mt-2">
         {item.trainingName}
