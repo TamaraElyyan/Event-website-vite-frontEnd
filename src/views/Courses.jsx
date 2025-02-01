@@ -26,6 +26,11 @@ const Courses = () => {
     fetchCourses();
   }, []);
 
+  const handleRegistrationRequest = (courseId) => {
+    // Log the registration request for debugging
+    console.log("Registration request for course ID:", courseId);
+  };
+
   if (loading) return <div className="spinner">Loading...</div>;
 
   if (error)
@@ -51,6 +56,7 @@ const Courses = () => {
               item={course}
               type="course"
               auth={auth}
+              onRegister={handleRegistrationRequest}
             />
           ))}
         </div>

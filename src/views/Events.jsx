@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
-import EventsAPI from "../API/endpoint/Events"; // Assuming you have an Events API
+import EventsAPI from "../API/endpoint/Events";
 import { AuthContext } from "../Context/AuthContext";
-import EventCard from "../components/Card"; // Assuming you have an EventCard component
+import EventCard from "../components/Card";
 
 const Events = () => {
   const { auth } = useContext(AuthContext);
@@ -26,6 +26,11 @@ const Events = () => {
     fetchEvents();
   }, []);
 
+  const handleRegistrationRequest = (eventId) => {
+    // Log the registration request for debugging
+    console.log("Registration request for event ID:", eventId);
+  };
+
   if (loading) return <div className="spinner">Loading...</div>;
 
   if (error)
@@ -37,7 +42,7 @@ const Events = () => {
         Upcoming Events
       </h1>
       <h2 className="text-xl text-gray-600 text-center mb-2">
-        Discover Our Exciting Events
+        Join Us for Exciting Opportunities
       </h2>
       <div className="w-16 h-1 bg-[#4d2c5e] mx-auto mb-6"></div>
 
@@ -46,7 +51,13 @@ const Events = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {events.map((event) => (
-            <EventCard key={event.id} item={event} type="event" auth={auth} />
+            <EventCard
+              key={event.id}
+              item={event}
+              type="event"
+              auth={auth}
+              onRegister={handleRegistrationRequest}
+            />
           ))}
         </div>
       )}

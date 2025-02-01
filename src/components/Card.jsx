@@ -3,7 +3,7 @@ import axiosInstance from "../API/axios/axiosInstance"; // Importing the axiosIn
 import CourseImage from "./ImageProfile";
 import { useNavigate } from "react-router-dom";
 
-const Card = ({ item, type, auth }) => {
+const Card = ({ item, type, auth, onRegister }) => {
   const [isRegistered, setIsRegistered] = useState(
     item.registrationStudents?.some(
       (student) => student.student.email === auth?.user?.email
@@ -16,36 +16,41 @@ const Card = ({ item, type, auth }) => {
   const handleRegister = async () => {
     if (!auth?.token) {
       setMessage("You must be logged in to register.");
-      // Redirect to login page if not logged in
       navigate("/login");
       return;
     }
 
-    // Set loading state to true
+    if (!item || !item.id) {
+      setMessage("Invalid event or course. Please try again.");
+      console.error("Error: item is undefined or missing an ID.", item);
+      return;
+    }
+
     setLoading(true);
 
     try {
-      // Make API call to create a registration
       const response = await axiosInstance.post(
         "/registration/createRegistration",
         {
-          studentId: auth.user.id,
+          studentId: auth?.user?.id,
           trainingId: item.id,
           enrolled: true,
           notes: "Student is registered for the event, pending approval.",
         }
       );
 
-      // Check if registration was successful
       if (response.status === 200) {
         setIsRegistered(true);
         setMessage("Registration successful! Please wait for approval.");
       } else {
         setMessage("Registration failed. Please try again.");
       }
+
+      // Trigger the onRegister function passed from Courses.js
+      onRegister(item.id);
     } catch (error) {
       setMessage("An error occurred during registration.");
-      console.error(error);
+      console.error("Registration Error:", error);
     } finally {
       setLoading(false);
     }
@@ -56,7 +61,7 @@ const Card = ({ item, type, auth }) => {
       return item.trainingDescription || "No description available.";
     }
     if (type === "event") {
-      return item.eventDescription || "No description available.";
+      return item.trainingDescription || "No description available.";
     }
     if (type === "partner") {
       return item.partnerDescription || "No description available.";
