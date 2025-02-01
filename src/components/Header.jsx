@@ -1,17 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import GetStartedButton from "./GetStartedButton";
 import Logo from "./Logo";
-import Profile from "./Profile"; // Import the Profile component
+import Profile from "./Profile";
+import axios from "axios";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTrainingDropdownOpen, setIsTrainingDropdownOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State for user authentication
+  const [user, setUser] = useState(null); // State for storing user information
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Add state for user authentication
-  const isLoggedIn = false; // Replace with actual authentication logic
+  // Function to fetch user data
+  const fetchUserData = async (token) => {
+    try {
+      const response = await axios.get("/api/user", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUser(response.data);
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token"); // Replace with your actual token storage method
+    if (token) {
+      fetchUserData(token);
+    }
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -27,24 +47,10 @@ const Header = () => {
     setIsTrainingDropdownOpen(!isTrainingDropdownOpen);
   };
 
-  // Hide the header on certain pages
-  // if (
-  //   location.pathname === "/dashboard" ||
-  //   location.pathname === "/Register" ||
-  //   location.pathname === "/login" ||
-  //   location.pathname === "/StudentsList" ||
-  //   location.pathname === "/EventsList"
-  // ) {
-  //   return null;
-  // }
-
   return (
     <header className="fixed left-0 right-0 z-50 text-gray-800 p-4 bg-white px-6">
       <div className="flex justify-between items-center pl-4">
-        {/* Logo */}
         <Logo className="text-[#4D2C5E]" />
-
-        {/* Mobile menu button */}
         <button
           className="lg:hidden text-gray-800 focus:outline-none"
           onClick={toggleMenu}
@@ -64,8 +70,6 @@ const Header = () => {
             />
           </svg>
         </button>
-
-        {/* Desktop View - Only navigation links will be shown here */}
         <nav className={`lg:flex hidden space-x-4 text-[20px]`}>
           <a
             onClick={() => handleNavigate("/")}
@@ -91,7 +95,6 @@ const Header = () => {
           >
             Partners
           </a>
-
           <div className="relative">
             <a
               href="#"
@@ -127,7 +130,6 @@ const Header = () => {
               </div>
             )}
           </div>
-
           <a
             onClick={() => handleNavigate("/contact")}
             className={`cursor-pointer hover:text-[#8d64a3] ${
@@ -137,14 +139,14 @@ const Header = () => {
             Contact
           </a>
         </nav>
-
-        {/* Desktop Profile or Get Started button */}
         <div className="space-x-4 lg:ml-10 hidden lg:block">
-          {isLoggedIn ? <Profile /> : <GetStartedButton />}
+          {isLoggedIn && user ? (
+            <Profile name={user.name} avatar={user.avatar} /> // Pass user information to Profile component
+          ) : (
+            <GetStartedButton />
+          )}
         </div>
       </div>
-
-      {/* Mobile View - Menu and Logo */}
       {isMenuOpen && (
         <div className="lg:hidden bg-white p-4 mt-4">
           <a
@@ -171,8 +173,6 @@ const Header = () => {
           >
             Partners
           </a>
-
-          {/* Training Dropdown */}
           <div>
             <a
               onClick={handleTrainingDropdownToggle}
@@ -207,7 +207,6 @@ const Header = () => {
               </div>
             )}
           </div>
-
           <a
             onClick={() => handleNavigate("/contact")}
             className={`block py-2 cursor-pointer hover:bg-[#8d64a3] ${
@@ -216,11 +215,9 @@ const Header = () => {
           >
             Contact
           </a>
-
-          {/* Mobile Profile or Get Started button */}
-          {isLoggedIn ? (
+          {isLoggedIn && user ? (
             <div className="mt-4">
-              <Profile />
+              <Profile name={user.name} avatar={user.avatar} />
             </div>
           ) : (
             <div className="mt-4">

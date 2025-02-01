@@ -73,7 +73,7 @@ const Card = ({ item, type, auth, onRegister }) => {
     <div className="bg-white shadow-md rounded-lg p-4 flex flex-col items-center">
       <CourseImage
         token={auth?.token}
-        imageFilename={item.image || "/images/default-item.png"}
+        imageFilename={item.image || "../assets/PNG/DefaultPartners.png"}
         altText={item.name}
         size={80}
       />

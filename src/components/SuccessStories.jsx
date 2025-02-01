@@ -28,11 +28,13 @@ const SuccessStories = () => {
                 className="w-16 h-16 rounded-full mb-4"
               />
               <p className="text-gray-800 text-lg italic mb-4">
-                "Thanks to the courses I completed, I landed my dream job in
-                tech! The lessons were practical and easy to follow."
+                "Build a successful career in Backend Development by mastering
+                server-side technologies, optimizing databases, ensuring
+                scalability, and creating robust APIs that power reliable and
+                efficient web applications."
               </p>
-              <h3 className="text-gray-800 font-semibold">John Doe</h3>
-              <p className="text-gray-600 text-sm">Software Engineer</p>
+              <h3 className="text-gray-800 font-semibold">Israa Mousa</h3>
+              <p className="text-gray-600 text-sm">BackEnd Devoloper </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center">
               <img
@@ -41,11 +43,13 @@ const SuccessStories = () => {
                 className="w-16 h-16 rounded-full mb-4"
               />
               <p className="text-gray-800 text-lg italic mb-4">
-                "This platform gave me the skills I needed to switch careers and
-                build a successful career in digital marketing!"
+                "Build a successful career in Frontend Development by mastering
+                the latest web technologies, improving user experience, and
+                creating dynamic, responsive websites that meet the needs of
+                users and businesses"
               </p>
-              <h3 className="text-gray-800 font-semibold">Jane Smith</h3>
-              <p className="text-gray-600 text-sm">Digital Marketer</p>
+              <h3 className="text-gray-800 font-semibold">Tamara Elyyan</h3>
+              <p className="text-gray-600 text-sm">FrontEnd Devoloper</p>
             </div>
           </div>
         </div>

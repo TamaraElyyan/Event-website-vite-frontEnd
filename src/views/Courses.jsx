@@ -27,7 +27,6 @@ const Courses = () => {
   }, []);
 
   const handleRegistrationRequest = (courseId) => {
-    // Log the registration request for debugging
     console.log("Registration request for course ID:", courseId);
   };
 
