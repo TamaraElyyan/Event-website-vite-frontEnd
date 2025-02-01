@@ -33,7 +33,7 @@ const SuccessStories = () => {
                 scalability, and creating robust APIs that power reliable and
                 efficient web applications."
               </p>
-              <h3 className="text-gray-800 font-semibold">Israa Mousa</h3>
+              <h3 className="text-gray-800 font-semibold">Israa Mazaraa</h3>
               <p className="text-gray-600 text-sm">BackEnd Devoloper </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center">

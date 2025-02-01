@@ -5,7 +5,7 @@ const ImageProfile = ({
   token,
   imageFilename,
   altText = "Image",
-  defaultImage = "/mnt/data/image.png",
+  defaultImage = "/src/assets/PNG/OBJECT1Home.png",
   size = 40,
 }) => {
   const [imageSrc, setImageSrc] = useState(defaultImage);
@@ -30,6 +30,7 @@ const ImageProfile = ({
       } catch (error) {
         console.error("Error fetching image:", error);
         setImageSrc(defaultImage);
+        console.log(imageSrc)
       }
     };
 
@@ -38,7 +39,7 @@ const ImageProfile = ({
 
   return (
     <img
-      src={imageSrc}
+      src={imageSrc || Ellipse}
       alt={altText}
       className="rounded-full object-cover"
       style={{ width: size, height: size }}
