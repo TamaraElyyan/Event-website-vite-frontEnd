@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axiosInstance from "../API/axios/axiosInstance"; // Importing the axiosInstance
+import axiosInstance from "../API/axios/axiosInstance"; // Importing axiosInstance
 import { useNavigate } from "react-router-dom";
 import defaultImage from "../assets/PNG/courseIcon1.jpg";
 
@@ -11,46 +11,66 @@ const Card = ({ item, type, auth, onRegister }) => {
   );
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState(""); // To store the type of message (success or error)
   const navigate = useNavigate(); // Initialize useNavigate hook
 
   const handleRegister = async () => {
     if (!auth?.token) {
       setMessage("You must be logged in to register.");
+      setMessageType("error"); // Set message type to error
       navigate("/login");
       return;
     }
 
     if (!item || !item.id) {
       setMessage("Invalid event or course. Please try again.");
+      setMessageType("error"); // Set message type to error
       console.error("Error: item is undefined or missing an ID.", item);
       return;
     }
 
     setLoading(true);
+    setMessage(""); // Clear previous messages
+    setMessageType(""); // Clear previous message type
 
     try {
-      const response = await axiosInstance.post(
+      // Fetch the student ID using username
+      const studentResponse = await axiosInstance.get(
+        `/student/findByUsername/${auth?.username}`
+      );
+
+      if (!studentResponse.data?.id) {
+        throw new Error("Student ID not found.");
+      }
+
+      const studentId = studentResponse.data.id;
+
+      // Proceed with registration
+      const registrationResponse = await axiosInstance.post(
         "/registration/createRegistration",
         {
-          studentId: auth?.user?.id,
+          studentId: studentId,
           trainingId: item.id,
           enrolled: true,
           notes: "Student is registered for the event, pending approval.",
         }
       );
 
-      if (response.status === 200) {
+      // Check for successful registration using status code 201
+      if (registrationResponse.status === 201) {
         setIsRegistered(true);
-        setMessage("Registration successful! Please wait for approval.");
+        setMessage("✅ Registration successful! Please wait for approval.");
+        setMessageType("success"); // Set message type to success
+        onRegister(item.id); // Trigger the onRegister function passed from Courses.js
       } else {
-        setMessage("Registration failed. Please try again.");
+        setMessage("❌ Registration failed. Please try again.");
+        setMessageType("error"); // Set message type to error
       }
-
-      // Trigger the onRegister function passed from Courses.js
-      onRegister(item.id);
     } catch (error) {
-      setMessage("An error occurred during registration.");
       console.error("Registration Error:", error);
+      // Display error message from the response if available, otherwise use a generic error
+      setMessage(`❌ ${error.response?.data?.message || error.message}`);
+      setMessageType("error"); // Set message type to error
     } finally {
       setLoading(false);
     }
@@ -86,7 +106,17 @@ const Card = ({ item, type, auth, onRegister }) => {
           enrolled
         </p>
       )}
-      {message && <p className="text-xs text-green-500 mt-2">{message}</p>}
+      {message && (
+        <p
+          className={`text-xs mt-2 ${
+            messageType === "success"
+              ? "text-green-500" // Success message in green
+              : "text-red-500"   // Error message in red
+          }`}
+        >
+          {message}
+        </p>
+      )}
       {(type === "course" || type === "event") && (
         <button
           onClick={handleRegister}
