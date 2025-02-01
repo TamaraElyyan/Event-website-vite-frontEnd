@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axiosInstance from "../API/axios/axiosInstance"; // Importing the axiosInstance
 import { useNavigate } from "react-router-dom";
+import defaultImage from "../assets/PNG/courseIcon1.jpg";
 
 const Card = ({ item, type, auth, onRegister }) => {
   const [isRegistered, setIsRegistered] = useState(
@@ -64,7 +65,7 @@ const Card = ({ item, type, auth, onRegister }) => {
     }
   };
 
-  const imageUrl = item.imageUrl || "../assets/PNG/courseIcon1.jpg";
+  const imageUrl = item.imageUrl || defaultImage;
 
   return (
     <div className="bg-white shadow-md rounded-lg p-4 flex flex-col items-center">
