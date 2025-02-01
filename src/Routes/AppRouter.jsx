@@ -23,11 +23,13 @@ import InstructorsList from "../views/InstructorsList";
 import OrganizationsList from "../views/OrganizationsList";
 import CoursesList from "../views/CoursesList";
 import AddCourse from "../views/AddCourse";
+import EditCourse from "../views/EditCourseForm";
 import AddEvent from "../views/AddEvent";
 import CoursesDetails from "../views/CoursesDetails";
 import Footer from "../components/Footer";
 import Courses from "../views/Courses";
 import Events from "../views/Events";
+
 const AppRouter = () => {
   return (
     <Router>
@@ -97,6 +99,7 @@ const AppRouter = () => {
         {/* Routes for login and register */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
         {/* Protected Routes with Sidebar and Navbar */}
         <Route
           path="/dashboard"
@@ -169,6 +172,16 @@ const AppRouter = () => {
           }
         />
         <Route
+          path="/EditCourse/:id"
+          element={
+            <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
+              <WrapperWithSidebarAndNavbar>
+                <EditCourse />
+              </WrapperWithSidebarAndNavbar>
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/Course/:id"
           element={
             <ProtectedRoute allowedRoles={["SUPER_ADMIN", "ADMIN"]}>
@@ -198,6 +211,7 @@ const AppRouter = () => {
             </ProtectedRoute>
           }
         />
+
         {/* Protected Routes without Sidebar */}
         <Route
           path="/StudentProfile"
@@ -223,9 +237,7 @@ const AppRouter = () => {
           path="/StudentUpdateProfile"
           element={
             <ProtectedRoute allowedRoles={["STUDENT"]}>
-              {/* <WrapperWithoutSidebar> */}
               <StudentUpdateProfile />
-              {/* </WrapperWithoutSidebar> */}
             </ProtectedRoute>
           }
         />
@@ -239,6 +251,7 @@ const AppRouter = () => {
             </ProtectedRoute>
           }
         />
+
         {/* Default Route for Not Found */}
         <Route path="*" element={<NotFound />} />
       </Routes>

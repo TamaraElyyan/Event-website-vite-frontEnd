@@ -10,7 +10,7 @@ const CoursesList = () => {
   const navigate = useNavigate();
 
   const handleAdd = () => {
-    navigate("/addCourse"); // Navigate to the Add Course page
+    navigate("/addCourse");
   };
 
   useEffect(() => {
@@ -19,14 +19,11 @@ const CoursesList = () => {
         const data = await fetchCourses();
         if (Array.isArray(data)) {
           setCourses(data);
-          console.log(data)
-          console.log(data[0].trainingOrganizations)
-
         } else {
           throw new Error("Unexpected response format");
         }
       } catch (err) {
-        console.error("Fetch error:", err.response || err.message);
+        console.error("Fetch error:", err);
         setError("Failed to fetch Courses. Please try again later.");
       } finally {
         setLoading(false);
@@ -36,14 +33,18 @@ const CoursesList = () => {
     getCourses();
   }, []);
 
-  // Handle delete action
+  const handleEdit = (course) => {
+    navigate(`/editCourse/${course.id}`); // Redirect to edit page
+  };
+
   const handleDelete = async (id) => {
     try {
-      console.log("Deleting course with ID:", id);
-      await deleteCourse(id); // Call API to delete course
-      setCourses(courses.filter((course) => course.id !== id));
+      if (window.confirm("Are you sure you want to delete this course?")) {
+        await deleteCourse(id);
+        setCourses(courses.filter((course) => course.id !== id));
+      }
     } catch (err) {
-      console.error("Delete error:", err.response || err.message);
+      console.error("Delete error:", err);
       setError("Failed to delete course. Please try again later.");
     }
   };
@@ -62,35 +63,29 @@ const CoursesList = () => {
         </span>
       ),
     },
-    { header: "NumberOfStudentsEnrolled", accessor: "numberOfStudentsEnrolled" },
-    { header: "Max Number Of Students", accessor: "maxNumberOfStudents" },
+    { header: "Number of Students", accessor: "numberOfStudentsEnrolled" },
+    { header: "Max Students", accessor: "maxNumberOfStudents" },
     { header: "End Registration", accessor: "endRegistration" },
   ];
 
-  if (loading) {
+  if (loading)
     return (
       <div className="flex justify-center items-center h-screen">
-        <div className="text-xl text-gray-500">Loading...</div>
+        Loading...
       </div>
     );
-  }
-
-  if (error) {
+  if (error)
     return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="text-xl text-red-500">{error}</div>
+      <div className="flex justify-center items-center h-screen text-red-500">
+        {error}
       </div>
     );
-  }
 
   return (
     <div className="flex h-screen overflow-hidden">
-      {/* Sidebar (left side) */}
       <div className="w-1/6 h-full"></div>
 
-      {/* Main Content (right side) */}
       <div className="flex-1 flex flex-col ml-0 lg:ml-1 overflow-y-auto pr-4 lg:pl-8 lg:pr-11 relative mt-16">
-        {/* Add Button */}
         <div className="flex justify-end mt-8">
           <button
             className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded shadow"
@@ -104,8 +99,8 @@ const CoursesList = () => {
         <Table
           columns={columns}
           data={courses}
-          onEdit={(course) => console.log("Edit course:", course)} // Handle edit
-          onDelete={handleDelete} // Handle delete
+          onEdit={handleEdit}
+          onDelete={handleDelete}
         />
       </div>
     </div>
